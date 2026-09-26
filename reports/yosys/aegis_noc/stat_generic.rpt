@@ -1,0 +1,30 @@
+
+15. Printing statistics.
+
+=== aegis_noc ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     3482 wires
+     7003 wire bits
+      173 public wires
+     3540 public wire bits
+       12 ports
+      478 port bits
+     4702 cells
+       92   $_ANDNOT_
+      744   $_AND_
+      640   $_DFFE_PP_
+       25   $_DFF_P_
+      486   $_MUX_
+     1221   $_NAND_
+       43   $_NOR_
+       35   $_NOT_
+       40   $_ORNOT_
+       56   $_OR_
+      190   $_SDFFE_PP0P_
+       74   $_SDFF_PP0_
+      802   $_XNOR_
+      227   $_XOR_
+       27   $scopeinfo
+

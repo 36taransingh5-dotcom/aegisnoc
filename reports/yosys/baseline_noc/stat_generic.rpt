@@ -1,0 +1,29 @@
+
+13. Printing statistics.
+
+=== baseline_noc ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     2237 wires
+     4285 wire bits
+      131 public wires
+     2149 public wire bits
+        8 ports
+      342 port bits
+     3158 cells
+       55   $_ANDNOT_
+      559   $_AND_
+      640   $_DFFE_PP_
+       25   $_DFF_P_
+      485   $_MUX_
+     1032   $_NAND_
+       20   $_NOR_
+       25   $_NOT_
+       28   $_ORNOT_
+       57   $_OR_
+      190   $_SDFFE_PP0P_
+       15   $_XNOR_
+       10   $_XOR_
+       17   $scopeinfo
+

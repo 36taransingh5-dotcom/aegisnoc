@@ -1,0 +1,29 @@
+AegisNoC mutation check (deliberate RTL bugs must be caught by the testbenches)
+result: 26 killed, 0 survived, 0 errors out of 26 mutants
+
+killed   fifo_push_ignores_full           by tb_fifo
+killed   fifo_pop_ignores_empty           by tb_fifo
+killed   fifo_pushpop_counts_up           by tb_fifo
+killed   xy_y_before_x                    by tb_xy_route
+killed   xy_swap_north_south              by tb_xy_route
+killed   arb_ignores_accept               by tb_rr_arbiter
+killed   arb_ptr_parks_on_winner          by tb_rr_arbiter
+killed   arb_fixed_priority               by tb_rr_arbiter
+killed   core_load_ignores_ready          by tb_router
+killed   core_pop_ignores_load            by tb_router
+killed   core_valid_sticks                by tb_router
+killed   core_in_ready_always             by tb_router
+killed   core_swap_xy_fields              by tb_router
+killed   ecc_mask_bit_wrong               by tb_ecc
+killed   ecc_enc_overall_data_only        by tb_ecc
+killed   ecc_dec_wrong_syndrome_mask      by tb_ecc
+killed   ecc_dec_sec_no_range             by tb_ecc
+killed   ecc_dec_ded_misses_odd           by tb_ecc
+killed   ecc_dec_no_correction            by tb_ecc
+killed   ecc_dec_range_off_by_one         by tb_ecc
+killed   aegis_routes_uncorrectable       by tb_aegis_fault_injection
+killed   aegis_counts_without_handshake   by tb_aegis_fault_injection
+killed   aegis_counts_idle_inputs         by tb_aegis_fault_injection
+killed   aegis_counter_by_one             by tb_aegis_fault_injection
+killed   aegis_no_output_encode           by tb_aegis_fault_injection
+killed   aegis_router_gets_raw_flit       by tb_aegis_fault_injection

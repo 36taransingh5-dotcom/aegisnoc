@@ -1,0 +1,22 @@
+
+19. Printing statistics.
+
+=== aegis_noc ===
+
+        +----------Local Count, excluding submodules.
+        | 
+    12115 wires
+    14850 wire bits
+      145 public wires
+     2880 public wire bits
+       12 ports
+      478 port bits
+    12968 cells
+      929   $_DFF_P_
+     7950   $_NAND_
+     2941   $_NOR_
+     1121   $_NOT_
+       27   $scopeinfo
+
+   Estimated number of transistors:      60670+
+

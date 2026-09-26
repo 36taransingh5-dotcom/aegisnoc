@@ -1,0 +1,78 @@
+
+  ============================================================
+   AegisNoC live fault-injection demo      router tile (1,1)
+  ============================================================
+
+  [Demo A] Clean protected packet
+  ------------------------------------------------------------
+  Source port            : LOCAL
+  Destination            : (x=3, y=1)  -> expected exit EAST
+  Original flit          : 0xdeadbeef   (payload 0xeadbeef)
+  Codeword sent (39 b)   : 0x63deadbeef
+  ECC syndrome           : 000000
+  Status                 : no error
+  Exit port              : EAST
+  Received flit          : 0xdeadbeef
+  RESULT                 : PASS
+
+  [Demo B] Single-bit corruption in the payload
+  ------------------------------------------------------------
+  Original flit          : 0xdeadbeef
+  Injected fault bit     : 12  (payload bit 12)
+  Corrupted flit on wire : 0xdeadaeef
+  ECC syndrome           : 010010  (= Hamming position 18)
+  Single error corrected : YES
+  Double error detected  : NO
+  Exit port              : EAST
+  Received flit          : 0xdeadbeef
+  RESULT                 : PASS
+
+  [Demo B2] Single-bit corruption in the ROUTING HEADER (bit 31 = dst_x MSB)
+  ------------------------------------------------------------
+  Corrupted flit         : 0x5eadbeef  -> header now says x=1, y=1
+  BaselineNoC (no ECC)   : exits LOCAL with flit 0x5eadbeef   <-- MISROUTED + CORRUPT
+  AegisNoC  (SECDED)     : exits EAST  with flit 0xdeadbeef   <-- header corrected before routing
+  ECC syndrome           : 100110  (= Hamming position 38)
+  Single error corrected : YES
+  RESULT                 : PASS
+
+  [Demo C] Double-bit corruption (bits 12 and 30)
+  ------------------------------------------------------------
+  Original flit          : 0xdeadbeef
+  Injected fault bits    : 12 (payload bit 12), 30 (HEADER dst_x[0])
+  ECC syndrome           : 110111  (overall parity even -> not a single error)
+  Single error corrected : NO
+  Double error detected  : YES
+  Delivery               : DROPPED (never routed on an uncorrectable header)
+  RESULT                 : PASS
+
+  [Demo D] Contention: NORTH, WEST and LOCAL all stream to EAST
+  ------------------------------------------------------------
+  EAST grant order       : N W L N W L N W L N W L N W L N W L 
+  Grants N / W / L       : 6 / 6 / 6
+  RESULT                 : PASS (strict rotation, nobody starved)
+
+  [Sweep] Every single codeword bit (0..38) flipped, end-to-end
+  ------------------------------------------------------------
+  39/39 bits corrected; every flit exited EAST as 0xdeadbeef with a clean codeword
+  (includes all 4 header bits, all 6 check bits and the overall parity bit)
+  RESULT                 : PASS
+
+  [Sweep] 39 double-bit faults end-to-end (bit b and bit (b+7) mod 39)
+  ------------------------------------------------------------
+  39/39 flagged uncorrectable and dropped; nothing reached an output
+  RESULT                 : PASS
+
+  [Burst] Single-bit faults on all 5 inputs in the SAME cycle
+  ------------------------------------------------------------
+  corrected_error_count jumped by 5 in one cycle; all 5 flits delivered to LOCAL intact
+  RESULT                 : PASS
+
+  [Stall] Faulty flit held under backpressure + junk on idle inputs
+  ------------------------------------------------------------
+  held 10 cycles unaccepted: no flag, no count; counted exactly once on acceptance
+  RESULT                 : PASS
+
+  [Counters] corrected_error_count = 47 (expected 47), uncorrectable_error_count = 40 (expected 40)
+
+TB_AEGIS_FAULT_INJECTION: PASS

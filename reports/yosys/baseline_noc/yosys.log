@@ -1,0 +1,2305 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.69+post (git sha1 143eb14f9cc55d6f8927e68523b0c9d2166ed02c, Release, AppleClang clang++ 21.0.0.21000101)
+
+-- Running command `
+  read_verilog -sv rtl/aegis_pkg.sv rtl/sync_fifo.sv rtl/xy_route.sv rtl/rr_arbiter.sv rtl/crossbar_5x5.sv rtl/router_core.sv rtl/baseline_noc.sv
+  hierarchy -check -top baseline_noc
+  proc
+  check -assert
+  synth -top baseline_noc -flatten -nordff
+  check -assert
+  select -assert-none t:$_DLATCH* t:$dlatch* t:$_SR* t:$sr
+  tee -o reports/yosys/baseline_noc/stat_generic.rpt stat
+  dfflegalize -cell $_DFF_P_ 01
+  abc -g cmos2
+  opt_clean
+  tee -o reports/yosys/baseline_noc/stat_cmos.rpt stat -tech cmos
+  tee -o reports/yosys/baseline_noc/ltp.rpt ltp -noff
+  write_verilog -noattr build/baseline_noc_yosys_generic.v
+' --
+
+1. Executing Verilog-2005 frontend: rtl/aegis_pkg.sv
+Parsing SystemVerilog input from `rtl/aegis_pkg.sv' to AST representation.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: rtl/sync_fifo.sv
+Parsing SystemVerilog input from `rtl/sync_fifo.sv' to AST representation.
+Generating RTLIL representation for module `\sync_fifo'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: rtl/xy_route.sv
+Parsing SystemVerilog input from `rtl/xy_route.sv' to AST representation.
+Generating RTLIL representation for module `\xy_route'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: rtl/rr_arbiter.sv
+Parsing SystemVerilog input from `rtl/rr_arbiter.sv' to AST representation.
+Generating RTLIL representation for module `\rr_arbiter'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: rtl/crossbar_5x5.sv
+Parsing SystemVerilog input from `rtl/crossbar_5x5.sv' to AST representation.
+Generating RTLIL representation for module `\crossbar_5x5'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: rtl/router_core.sv
+Parsing SystemVerilog input from `rtl/router_core.sv' to AST representation.
+Generating RTLIL representation for module `\router_core'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: rtl/baseline_noc.sv
+Parsing SystemVerilog input from `rtl/baseline_noc.sv' to AST representation.
+Generating RTLIL representation for module `\baseline_noc'.
+Successfully finished Verilog frontend.
+
+8. Executing HIERARCHY pass (managing design hierarchy).
+
+8.1. Analyzing design hierarchy..
+Top module:  \baseline_noc
+Used module:     \router_core
+Used module:         \rr_arbiter
+Used module:         \xy_route
+Used module:         \sync_fifo
+Used module:         \crossbar_5x5
+Parameter \N = 5
+
+8.2. Executing AST frontend in derive mode using pre-parsed AST for module `\rr_arbiter'.
+Parameter \N = 5
+Generating RTLIL representation for module `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101'.
+Parameter \N = 5
+Found cached RTLIL representation for module `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101'.
+Parameter \N = 5
+Found cached RTLIL representation for module `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101'.
+Parameter \N = 5
+Found cached RTLIL representation for module `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101'.
+Parameter \N = 5
+Found cached RTLIL representation for module `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+
+8.3. Executing AST frontend in derive mode using pre-parsed AST for module `\sync_fifo'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+Generating RTLIL representation for module `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+Found cached RTLIL representation for module `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+Found cached RTLIL representation for module `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+Found cached RTLIL representation for module `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+Found cached RTLIL representation for module `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo'.
+Parameter \W = 32
+
+8.4. Executing AST frontend in derive mode using pre-parsed AST for module `\crossbar_5x5'.
+Parameter \W = 32
+Generating RTLIL representation for module `$paramod\crossbar_5x5\W=s32'00000000000000000000000000100000'.
+Parameter \CURRENT_X = 2'01
+Parameter \CURRENT_Y = 2'01
+
+8.5. Executing AST frontend in derive mode using pre-parsed AST for module `\router_core'.
+Parameter \CURRENT_X = 2'01
+Parameter \CURRENT_Y = 2'01
+Generating RTLIL representation for module `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01'.
+
+8.6. Analyzing design hierarchy..
+Top module:  \baseline_noc
+Used module:     $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01
+Used module:         \rr_arbiter
+Used module:         \xy_route
+Used module:         \sync_fifo
+Used module:         \crossbar_5x5
+Parameter \N = 5
+Found cached RTLIL representation for module `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101'.
+Parameter \N = 5
+Found cached RTLIL representation for module `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101'.
+Parameter \N = 5
+Found cached RTLIL representation for module `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101'.
+Parameter \N = 5
+Found cached RTLIL representation for module `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101'.
+Parameter \N = 5
+Found cached RTLIL representation for module `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+Found cached RTLIL representation for module `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+Found cached RTLIL representation for module `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+Found cached RTLIL representation for module `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+Found cached RTLIL representation for module `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo'.
+Parameter \WIDTH = 32
+Parameter \DEPTH = 4
+Found cached RTLIL representation for module `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo'.
+Parameter \W = 32
+Found cached RTLIL representation for module `$paramod\crossbar_5x5\W=s32'00000000000000000000000000100000'.
+
+8.7. Analyzing design hierarchy..
+Top module:  \baseline_noc
+Used module:     $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01
+Used module:         $paramod\rr_arbiter\N=s32'00000000000000000000000000000101
+Used module:         \xy_route
+Used module:         $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo
+Used module:         $paramod\crossbar_5x5\W=s32'00000000000000000000000000100000
+
+8.8. Analyzing design hierarchy..
+Top module:  \baseline_noc
+Used module:     $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01
+Used module:         $paramod\rr_arbiter\N=s32'00000000000000000000000000000101
+Used module:         \xy_route
+Used module:         $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo
+Used module:         $paramod\crossbar_5x5\W=s32'00000000000000000000000000100000
+Removing unused module `\router_core'.
+Removing unused module `\crossbar_5x5'.
+Removing unused module `\rr_arbiter'.
+Removing unused module `\sync_fifo'.
+Removed 4 unused modules.
+
+9. Executing PROC pass (convert processes to netlists).
+
+9.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+9.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$rtl/router_core.sv:130$528 in module $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.
+Marked 2 switch rules as full_case in process $proc$rtl/sync_fifo.sv:55$326 in module $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.
+Marked 1 switch rules as full_case in process $proc$rtl/sync_fifo.sv:48$319 in module $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.
+Marked 4 switch rules as full_case in process $proc$rtl/xy_route.sv:21$21 in module xy_route.
+Marked 1 switch rules as full_case in process $proc$rtl/rr_arbiter.sv:54$309 in module $paramod\rr_arbiter\N=s32'00000000000000000000000000000101.
+Marked 5 switch rules as full_case in process $proc$rtl/rr_arbiter.sv:47$307 in module $paramod\rr_arbiter\N=s32'00000000000000000000000000000101.
+Removed a total of 0 dead cases.
+
+9.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 1 redundant assignment.
+Promoted 66 assignments to connections.
+
+9.4. Executing PROC_INIT pass (extract init attributes).
+
+9.5. Executing PROC_ARST pass (detect async resets in processes).
+
+9.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~27 debug messages>
+
+9.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:130$528'.
+     1/11: $0\out_data_q[159:0] [159:128]
+     2/11: $0\out_data_q[159:0] [127:96]
+     3/11: $0\out_valid_q[4:0] [3]
+     4/11: $0\out_data_q[159:0] [95:64]
+     5/11: $0\out_valid_q[4:0] [2]
+     6/11: $0\out_data_q[159:0] [63:32]
+     7/11: $0\out_valid_q[4:0] [1]
+     8/11: $0\out_data_q[159:0] [31:0]
+     9/11: $0\out_valid_q[4:0] [0]
+    10/11: $0\out_valid_q[4:0] [4]
+    11/11: $1$fordecl_block$122.o[31:0]$530
+Creating decoders for process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:109$471'.
+Creating decoders for process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:83$389'.
+Creating decoders for process `$paramod\crossbar_5x5\W=s32'00000000000000000000000000100000.$proc$rtl/crossbar_5x5.sv:22$332'.
+Creating decoders for process `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:55$326'.
+     1/3: $0\cnt[2:0]
+     2/3: $0\rptr[1:0]
+     3/3: $0\wptr[1:0]
+Creating decoders for process `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:48$319'.
+     1/3: $1$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$325
+     2/3: $1$memwr$\mem$rtl/sync_fifo.sv:50$312_DATA[31:0]$324
+     3/3: $1$memwr$\mem$rtl/sync_fifo.sv:50$312_ADDR[1:0]$323
+Creating decoders for process `\xy_route.$proc$rtl/xy_route.sv:21$21'.
+     1/4: $4\out_port[2:0]
+     2/4: $3\out_port[2:0]
+     3/4: $2\out_port[2:0]
+     4/4: $1\out_port[2:0]
+Creating decoders for process `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:54$309'.
+     1/1: $0\ptr[2:0]
+Creating decoders for process `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:47$307'.
+     1/5: $5\next_ptr[2:0]
+     2/5: $4\next_ptr[2:0]
+     3/5: $3\next_ptr[2:0]
+     4/5: $2\next_ptr[2:0]
+     5/5: $1\next_ptr[2:0]
+Creating decoders for process `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:35$291'.
+
+9.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.\fifo_pop' from process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:109$471'.
+No latch inferred for signal `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.\req' from process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:83$389'.
+No latch inferred for signal `$paramod\crossbar_5x5\W=s32'00000000000000000000000000100000.\out_data' from process `$paramod\crossbar_5x5\W=s32'00000000000000000000000000100000.$proc$rtl/crossbar_5x5.sv:22$332'.
+No latch inferred for signal `\xy_route.\out_port' from process `\xy_route.$proc$rtl/xy_route.sv:21$21'.
+No latch inferred for signal `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.\next_ptr' from process `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:47$307'.
+No latch inferred for signal `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.\mask' from process `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:35$291'.
+
+9.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.\out_valid_q' using process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:130$528'.
+  created $dff cell `$procdff$695' with positive edge clock.
+Creating register for signal `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.\out_data_q' using process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:130$528'.
+  created $dff cell `$procdff$696' with positive edge clock.
+Creating register for signal `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$fordecl_block$122.o' using process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:130$528'.
+  created $dff cell `$procdff$697' with positive edge clock.
+Creating register for signal `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.\wptr' using process `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:55$326'.
+  created $dff cell `$procdff$698' with positive edge clock.
+Creating register for signal `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.\rptr' using process `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:55$326'.
+  created $dff cell `$procdff$699' with positive edge clock.
+Creating register for signal `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.\cnt' using process `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:55$326'.
+  created $dff cell `$procdff$700' with positive edge clock.
+Creating register for signal `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$memwr$\mem$rtl/sync_fifo.sv:50$312_ADDR' using process `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:48$319'.
+  created $dff cell `$procdff$701' with positive edge clock.
+Creating register for signal `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$memwr$\mem$rtl/sync_fifo.sv:50$312_DATA' using process `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:48$319'.
+  created $dff cell `$procdff$702' with positive edge clock.
+Creating register for signal `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$memwr$\mem$rtl/sync_fifo.sv:50$312_EN' using process `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:48$319'.
+  created $dff cell `$procdff$703' with positive edge clock.
+Creating register for signal `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.\ptr' using process `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:54$309'.
+  created $dff cell `$procdff$704' with positive edge clock.
+
+9.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+9.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 11 empty switches in `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:130$528'.
+Removing empty process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:130$528'.
+Removing empty process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:109$471'.
+Removing empty process `$paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.$proc$rtl/router_core.sv:83$389'.
+Removing empty process `$paramod\crossbar_5x5\W=s32'00000000000000000000000000100000.$proc$rtl/crossbar_5x5.sv:22$332'.
+Found and cleaned up 4 empty switches in `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:55$326'.
+Removing empty process `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:55$326'.
+Found and cleaned up 1 empty switch in `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:48$319'.
+Removing empty process `$paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.$proc$rtl/sync_fifo.sv:48$319'.
+Found and cleaned up 4 empty switches in `\xy_route.$proc$rtl/xy_route.sv:21$21'.
+Removing empty process `xy_route.$proc$rtl/xy_route.sv:21$21'.
+Found and cleaned up 2 empty switches in `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:54$309'.
+Removing empty process `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:54$309'.
+Found and cleaned up 5 empty switches in `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:47$307'.
+Removing empty process `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:47$307'.
+Removing empty process `$paramod\rr_arbiter\N=s32'00000000000000000000000000000101.$proc$rtl/rr_arbiter.sv:35$291'.
+Cleaned up 27 empty switches.
+
+9.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+Optimizing module $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.
+<suppressed ~10 debug messages>
+Optimizing module $paramod\crossbar_5x5\W=s32'00000000000000000000000000100000.
+<suppressed ~5 debug messages>
+Optimizing module $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.
+<suppressed ~1 debug messages>
+Optimizing module xy_route.
+Optimizing module $paramod\rr_arbiter\N=s32'00000000000000000000000000000101.
+
+10. Executing CHECK pass (checking for obvious problems).
+Checking module baseline_noc...
+Checking module $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01...
+Checking module $paramod\crossbar_5x5\W=s32'00000000000000000000000000100000...
+Checking module $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo...
+Checking module xy_route...
+Checking module $paramod\rr_arbiter\N=s32'00000000000000000000000000000101...
+Found and reported 0 problems.
+
+11. Executing SYNTH pass.
+
+11.1. Executing HIERARCHY pass (managing design hierarchy).
+
+11.1.1. Analyzing design hierarchy..
+Top module:  \baseline_noc
+Used module:     $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01
+Used module:         $paramod\rr_arbiter\N=s32'00000000000000000000000000000101
+Used module:         \xy_route
+Used module:         $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo
+Used module:         $paramod\crossbar_5x5\W=s32'00000000000000000000000000100000
+
+11.1.2. Analyzing design hierarchy..
+Top module:  \baseline_noc
+Used module:     $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01
+Used module:         $paramod\rr_arbiter\N=s32'00000000000000000000000000000101
+Used module:         \xy_route
+Used module:         $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo
+Used module:         $paramod\crossbar_5x5\W=s32'00000000000000000000000000100000
+Removed 0 unused modules.
+
+11.2. Executing PROC pass (convert processes to netlists).
+
+11.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+11.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+11.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+11.2.4. Executing PROC_INIT pass (extract init attributes).
+
+11.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+11.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+11.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+11.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+11.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+11.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+11.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+11.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+Optimizing module $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.
+Optimizing module $paramod\crossbar_5x5\W=s32'00000000000000000000000000100000.
+Optimizing module $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.
+Optimizing module xy_route.
+Optimizing module $paramod\rr_arbiter\N=s32'00000000000000000000000000000101.
+
+11.3. Executing CHECK pass (checking for obvious problems).
+Checking module baseline_noc...
+Checking module $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01...
+Checking module $paramod\crossbar_5x5\W=s32'00000000000000000000000000100000...
+Checking module $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo...
+Checking module xy_route...
+Checking module $paramod\rr_arbiter\N=s32'00000000000000000000000000000101...
+Found and reported 0 problems.
+
+11.4. Executing FLATTEN pass (flatten design).
+Deleting now unused module $paramod\router_core\CURRENT_X=2'01\CURRENT_Y=2'01.
+Deleting now unused module $paramod\crossbar_5x5\W=s32'00000000000000000000000000100000.
+Deleting now unused module $paramod$095b84765515c3f3395f1acd550fe9c4f2ca9dc4\sync_fifo.
+Deleting now unused module xy_route.
+Deleting now unused module $paramod\rr_arbiter\N=s32'00000000000000000000000000000101.
+<suppressed ~17 debug messages>
+
+11.5. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+
+11.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 17 unused cells and 484 unused wires.
+<suppressed ~18 debug messages>
+
+11.7. Executing CHECK pass (checking for obvious problems).
+Checking module baseline_noc...
+Found and reported 0 problems.
+
+11.8. Executing OPT pass (performing simple optimizations).
+
+11.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+
+11.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 554 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Computing hashes of 514 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+<suppressed ~120 debug messages>
+Removed a total of 40 cells.
+
+11.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \baseline_noc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[0].u_route.$procmux$670.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[0].u_route.$procmux$664.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[0].u_route.$procmux$661.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[0].u_route.$procmux$655.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[0].u_route.$procmux$652.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[0].u_route.$procmux$649.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[1].u_route.$procmux$670.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[1].u_route.$procmux$664.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[1].u_route.$procmux$661.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[1].u_route.$procmux$655.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[1].u_route.$procmux$652.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[1].u_route.$procmux$649.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[2].u_route.$procmux$670.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[2].u_route.$procmux$664.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[2].u_route.$procmux$661.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[2].u_route.$procmux$655.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[2].u_route.$procmux$652.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[2].u_route.$procmux$649.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[3].u_route.$procmux$670.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[3].u_route.$procmux$664.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[3].u_route.$procmux$661.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[3].u_route.$procmux$655.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[3].u_route.$procmux$652.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[3].u_route.$procmux$649.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[4].u_route.$procmux$670.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[4].u_route.$procmux$664.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[4].u_route.$procmux$661.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[4].u_route.$procmux$655.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[4].u_route.$procmux$652.
+    dead port 1/2 on $mux $flatten\u_core.\g_in[4].u_route.$procmux$649.
+Removed 30 multiplexer ports.
+<suppressed ~215 debug messages>
+
+11.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \baseline_noc.
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[0].u_fifo.$procmux$637:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322
+      New ports: A=1'0, B=1'1, Y=$flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0]
+      New connections: $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [31:1] = { $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[0].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] }
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[1].u_fifo.$procmux$637:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322
+      New ports: A=1'0, B=1'1, Y=$flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0]
+      New connections: $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [31:1] = { $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[1].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] }
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[2].u_fifo.$procmux$637:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322
+      New ports: A=1'0, B=1'1, Y=$flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0]
+      New connections: $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [31:1] = { $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[2].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] }
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[3].u_fifo.$procmux$637:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322
+      New ports: A=1'0, B=1'1, Y=$flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0]
+      New connections: $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [31:1] = { $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[3].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] }
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[4].u_fifo.$procmux$637:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322
+      New ports: A=1'0, B=1'1, Y=$flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0]
+      New connections: $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [31:1] = { $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] $flatten\u_core.\g_in[4].u_fifo.$0$memwr$\mem$rtl/sync_fifo.sv:50$312_EN[31:0]$322 [0] }
+  Optimizing cells in module \baseline_noc.
+Performed a total of 5 changes.
+
+11.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 484 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 0 unused cells and 70 unused wires.
+<suppressed ~1 debug messages>
+
+11.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+
+11.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+11.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \baseline_noc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~185 debug messages>
+
+11.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \baseline_noc.
+Performed a total of 0 changes.
+
+11.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 484 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+
+11.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+
+11.8.16. Finished fast OPT passes. (There is nothing left to do.)
+
+11.9. Executing FSM pass (extract and optimize FSM).
+
+11.9.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register baseline_noc.u_core.g_arb[0].u_arb.ptr.
+Found FSM state register baseline_noc.u_core.g_arb[1].u_arb.ptr.
+Found FSM state register baseline_noc.u_core.g_arb[2].u_arb.ptr.
+Found FSM state register baseline_noc.u_core.g_arb[3].u_arb.ptr.
+Found FSM state register baseline_noc.u_core.g_arb[4].u_arb.ptr.
+
+11.9.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\u_core.g_arb[0].u_arb.ptr' from module `\baseline_noc'.
+  found $dff cell for state register: $flatten\u_core.\g_arb[0].u_arb.$procdff$704
+  root of input selection tree: $flatten\u_core.\g_arb[0].u_arb.$0\ptr[2:0]
+  found reset state: 3'000 (guessed from mux tree)
+  found ctrl input: \rst
+  found ctrl input: $flatten\u_core.\g_arb[0].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y
+  found ctrl input: \u_core.g_arb[0].u_arb.grant [4]
+  found ctrl input: \u_core.g_arb[0].u_arb.grant [3]
+  found ctrl input: \u_core.g_arb[0].u_arb.grant [2]
+  found ctrl input: \u_core.g_arb[0].u_arb.grant [1]
+  found ctrl input: \u_core.g_arb[0].u_arb.grant [0]
+  found state code: 3'001
+  found state code: 3'010
+  found state code: 3'011
+  found state code: 3'100
+  found state code: 3'000
+  found ctrl output: \u_core.g_arb[0].u_arb.mask [1]
+  found ctrl output: \u_core.g_arb[0].u_arb.mask [2]
+  found ctrl output: \u_core.g_arb[0].u_arb.mask [3]
+  found ctrl output: \u_core.g_arb[0].u_arb.mask [4]
+  found ctrl output: \u_core.g_arb[0].u_arb.mask [0]
+  ctrl inputs: { $flatten\u_core.\g_arb[0].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y \u_core.g_arb[0].u_arb.grant \rst }
+  ctrl outputs: { $flatten\u_core.\g_arb[0].u_arb.$0\ptr[2:0] \u_core.g_arb[0].u_arb.mask }
+  transition:      3'000 7'0-----0 ->      3'000 8'00011111
+  transition:      3'000 7'1000000 ->      3'000 8'00011111
+  transition:      3'000 7'1000010 ->      3'001 8'00111111
+  transition:      3'000 7'10001-0 ->      3'010 8'01011111
+  transition:      3'000 7'1001--0 ->      3'011 8'01111111
+  transition:      3'000 7'101---0 ->      3'100 8'10011111
+  transition:      3'000 7'11----0 ->      3'000 8'00011111
+  transition:      3'000 7'------1 ->      3'000 8'00011111
+  transition:      3'100 7'0-----0 ->      3'100 8'10010000
+  transition:      3'100 7'1000000 ->      3'100 8'10010000
+  transition:      3'100 7'1000010 ->      3'001 8'00110000
+  transition:      3'100 7'10001-0 ->      3'010 8'01010000
+  transition:      3'100 7'1001--0 ->      3'011 8'01110000
+  transition:      3'100 7'101---0 ->      3'100 8'10010000
+  transition:      3'100 7'11----0 ->      3'000 8'00010000
+  transition:      3'100 7'------1 ->      3'000 8'00010000
+  transition:      3'010 7'0-----0 ->      3'010 8'01011100
+  transition:      3'010 7'1000000 ->      3'010 8'01011100
+  transition:      3'010 7'1000010 ->      3'001 8'00111100
+  transition:      3'010 7'10001-0 ->      3'010 8'01011100
+  transition:      3'010 7'1001--0 ->      3'011 8'01111100
+  transition:      3'010 7'101---0 ->      3'100 8'10011100
+  transition:      3'010 7'11----0 ->      3'000 8'00011100
+  transition:      3'010 7'------1 ->      3'000 8'00011100
+  transition:      3'001 7'0-----0 ->      3'001 8'00111110
+  transition:      3'001 7'1000000 ->      3'001 8'00111110
+  transition:      3'001 7'1000010 ->      3'001 8'00111110
+  transition:      3'001 7'10001-0 ->      3'010 8'01011110
+  transition:      3'001 7'1001--0 ->      3'011 8'01111110
+  transition:      3'001 7'101---0 ->      3'100 8'10011110
+  transition:      3'001 7'11----0 ->      3'000 8'00011110
+  transition:      3'001 7'------1 ->      3'000 8'00011110
+  transition:      3'011 7'0-----0 ->      3'011 8'01111000
+  transition:      3'011 7'1000000 ->      3'011 8'01111000
+  transition:      3'011 7'1000010 ->      3'001 8'00111000
+  transition:      3'011 7'10001-0 ->      3'010 8'01011000
+  transition:      3'011 7'1001--0 ->      3'011 8'01111000
+  transition:      3'011 7'101---0 ->      3'100 8'10011000
+  transition:      3'011 7'11----0 ->      3'000 8'00011000
+  transition:      3'011 7'------1 ->      3'000 8'00011000
+Extracting FSM `\u_core.g_arb[1].u_arb.ptr' from module `\baseline_noc'.
+  found $dff cell for state register: $flatten\u_core.\g_arb[1].u_arb.$procdff$704
+  root of input selection tree: $flatten\u_core.\g_arb[1].u_arb.$0\ptr[2:0]
+  found reset state: 3'000 (guessed from mux tree)
+  found ctrl input: \rst
+  found ctrl input: $flatten\u_core.\g_arb[1].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y
+  found ctrl input: \u_core.g_arb[1].u_arb.grant [4]
+  found ctrl input: \u_core.g_arb[1].u_arb.grant [3]
+  found ctrl input: \u_core.g_arb[1].u_arb.grant [2]
+  found ctrl input: \u_core.g_arb[1].u_arb.grant [1]
+  found ctrl input: \u_core.g_arb[1].u_arb.grant [0]
+  found state code: 3'001
+  found state code: 3'010
+  found state code: 3'011
+  found state code: 3'100
+  found state code: 3'000
+  found ctrl output: \u_core.g_arb[1].u_arb.mask [1]
+  found ctrl output: \u_core.g_arb[1].u_arb.mask [2]
+  found ctrl output: \u_core.g_arb[1].u_arb.mask [3]
+  found ctrl output: \u_core.g_arb[1].u_arb.mask [4]
+  found ctrl output: \u_core.g_arb[1].u_arb.mask [0]
+  ctrl inputs: { $flatten\u_core.\g_arb[1].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y \u_core.g_arb[1].u_arb.grant \rst }
+  ctrl outputs: { $flatten\u_core.\g_arb[1].u_arb.$0\ptr[2:0] \u_core.g_arb[1].u_arb.mask }
+  transition:      3'000 7'0-----0 ->      3'000 8'00011111
+  transition:      3'000 7'1000000 ->      3'000 8'00011111
+  transition:      3'000 7'1000010 ->      3'001 8'00111111
+  transition:      3'000 7'10001-0 ->      3'010 8'01011111
+  transition:      3'000 7'1001--0 ->      3'011 8'01111111
+  transition:      3'000 7'101---0 ->      3'100 8'10011111
+  transition:      3'000 7'11----0 ->      3'000 8'00011111
+  transition:      3'000 7'------1 ->      3'000 8'00011111
+  transition:      3'100 7'0-----0 ->      3'100 8'10010000
+  transition:      3'100 7'1000000 ->      3'100 8'10010000
+  transition:      3'100 7'1000010 ->      3'001 8'00110000
+  transition:      3'100 7'10001-0 ->      3'010 8'01010000
+  transition:      3'100 7'1001--0 ->      3'011 8'01110000
+  transition:      3'100 7'101---0 ->      3'100 8'10010000
+  transition:      3'100 7'11----0 ->      3'000 8'00010000
+  transition:      3'100 7'------1 ->      3'000 8'00010000
+  transition:      3'010 7'0-----0 ->      3'010 8'01011100
+  transition:      3'010 7'1000000 ->      3'010 8'01011100
+  transition:      3'010 7'1000010 ->      3'001 8'00111100
+  transition:      3'010 7'10001-0 ->      3'010 8'01011100
+  transition:      3'010 7'1001--0 ->      3'011 8'01111100
+  transition:      3'010 7'101---0 ->      3'100 8'10011100
+  transition:      3'010 7'11----0 ->      3'000 8'00011100
+  transition:      3'010 7'------1 ->      3'000 8'00011100
+  transition:      3'001 7'0-----0 ->      3'001 8'00111110
+  transition:      3'001 7'1000000 ->      3'001 8'00111110
+  transition:      3'001 7'1000010 ->      3'001 8'00111110
+  transition:      3'001 7'10001-0 ->      3'010 8'01011110
+  transition:      3'001 7'1001--0 ->      3'011 8'01111110
+  transition:      3'001 7'101---0 ->      3'100 8'10011110
+  transition:      3'001 7'11----0 ->      3'000 8'00011110
+  transition:      3'001 7'------1 ->      3'000 8'00011110
+  transition:      3'011 7'0-----0 ->      3'011 8'01111000
+  transition:      3'011 7'1000000 ->      3'011 8'01111000
+  transition:      3'011 7'1000010 ->      3'001 8'00111000
+  transition:      3'011 7'10001-0 ->      3'010 8'01011000
+  transition:      3'011 7'1001--0 ->      3'011 8'01111000
+  transition:      3'011 7'101---0 ->      3'100 8'10011000
+  transition:      3'011 7'11----0 ->      3'000 8'00011000
+  transition:      3'011 7'------1 ->      3'000 8'00011000
+Extracting FSM `\u_core.g_arb[2].u_arb.ptr' from module `\baseline_noc'.
+  found $dff cell for state register: $flatten\u_core.\g_arb[2].u_arb.$procdff$704
+  root of input selection tree: $flatten\u_core.\g_arb[2].u_arb.$0\ptr[2:0]
+  found reset state: 3'000 (guessed from mux tree)
+  found ctrl input: \rst
+  found ctrl input: $flatten\u_core.\g_arb[2].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y
+  found ctrl input: \u_core.g_arb[2].u_arb.grant [4]
+  found ctrl input: \u_core.g_arb[2].u_arb.grant [3]
+  found ctrl input: \u_core.g_arb[2].u_arb.grant [2]
+  found ctrl input: \u_core.g_arb[2].u_arb.grant [1]
+  found ctrl input: \u_core.g_arb[2].u_arb.grant [0]
+  found state code: 3'001
+  found state code: 3'010
+  found state code: 3'011
+  found state code: 3'100
+  found state code: 3'000
+  found ctrl output: \u_core.g_arb[2].u_arb.mask [1]
+  found ctrl output: \u_core.g_arb[2].u_arb.mask [2]
+  found ctrl output: \u_core.g_arb[2].u_arb.mask [3]
+  found ctrl output: \u_core.g_arb[2].u_arb.mask [4]
+  found ctrl output: \u_core.g_arb[2].u_arb.mask [0]
+  ctrl inputs: { $flatten\u_core.\g_arb[2].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y \u_core.g_arb[2].u_arb.grant \rst }
+  ctrl outputs: { $flatten\u_core.\g_arb[2].u_arb.$0\ptr[2:0] \u_core.g_arb[2].u_arb.mask }
+  transition:      3'000 7'0-----0 ->      3'000 8'00011111
+  transition:      3'000 7'1000000 ->      3'000 8'00011111
+  transition:      3'000 7'1000010 ->      3'001 8'00111111
+  transition:      3'000 7'10001-0 ->      3'010 8'01011111
+  transition:      3'000 7'1001--0 ->      3'011 8'01111111
+  transition:      3'000 7'101---0 ->      3'100 8'10011111
+  transition:      3'000 7'11----0 ->      3'000 8'00011111
+  transition:      3'000 7'------1 ->      3'000 8'00011111
+  transition:      3'100 7'0-----0 ->      3'100 8'10010000
+  transition:      3'100 7'1000000 ->      3'100 8'10010000
+  transition:      3'100 7'1000010 ->      3'001 8'00110000
+  transition:      3'100 7'10001-0 ->      3'010 8'01010000
+  transition:      3'100 7'1001--0 ->      3'011 8'01110000
+  transition:      3'100 7'101---0 ->      3'100 8'10010000
+  transition:      3'100 7'11----0 ->      3'000 8'00010000
+  transition:      3'100 7'------1 ->      3'000 8'00010000
+  transition:      3'010 7'0-----0 ->      3'010 8'01011100
+  transition:      3'010 7'1000000 ->      3'010 8'01011100
+  transition:      3'010 7'1000010 ->      3'001 8'00111100
+  transition:      3'010 7'10001-0 ->      3'010 8'01011100
+  transition:      3'010 7'1001--0 ->      3'011 8'01111100
+  transition:      3'010 7'101---0 ->      3'100 8'10011100
+  transition:      3'010 7'11----0 ->      3'000 8'00011100
+  transition:      3'010 7'------1 ->      3'000 8'00011100
+  transition:      3'001 7'0-----0 ->      3'001 8'00111110
+  transition:      3'001 7'1000000 ->      3'001 8'00111110
+  transition:      3'001 7'1000010 ->      3'001 8'00111110
+  transition:      3'001 7'10001-0 ->      3'010 8'01011110
+  transition:      3'001 7'1001--0 ->      3'011 8'01111110
+  transition:      3'001 7'101---0 ->      3'100 8'10011110
+  transition:      3'001 7'11----0 ->      3'000 8'00011110
+  transition:      3'001 7'------1 ->      3'000 8'00011110
+  transition:      3'011 7'0-----0 ->      3'011 8'01111000
+  transition:      3'011 7'1000000 ->      3'011 8'01111000
+  transition:      3'011 7'1000010 ->      3'001 8'00111000
+  transition:      3'011 7'10001-0 ->      3'010 8'01011000
+  transition:      3'011 7'1001--0 ->      3'011 8'01111000
+  transition:      3'011 7'101---0 ->      3'100 8'10011000
+  transition:      3'011 7'11----0 ->      3'000 8'00011000
+  transition:      3'011 7'------1 ->      3'000 8'00011000
+Extracting FSM `\u_core.g_arb[3].u_arb.ptr' from module `\baseline_noc'.
+  found $dff cell for state register: $flatten\u_core.\g_arb[3].u_arb.$procdff$704
+  root of input selection tree: $flatten\u_core.\g_arb[3].u_arb.$0\ptr[2:0]
+  found reset state: 3'000 (guessed from mux tree)
+  found ctrl input: \rst
+  found ctrl input: $flatten\u_core.\g_arb[3].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y
+  found ctrl input: \u_core.g_arb[3].u_arb.grant [4]
+  found ctrl input: \u_core.g_arb[3].u_arb.grant [3]
+  found ctrl input: \u_core.g_arb[3].u_arb.grant [2]
+  found ctrl input: \u_core.g_arb[3].u_arb.grant [1]
+  found ctrl input: \u_core.g_arb[3].u_arb.grant [0]
+  found state code: 3'001
+  found state code: 3'010
+  found state code: 3'011
+  found state code: 3'100
+  found state code: 3'000
+  found ctrl output: \u_core.g_arb[3].u_arb.mask [1]
+  found ctrl output: \u_core.g_arb[3].u_arb.mask [2]
+  found ctrl output: \u_core.g_arb[3].u_arb.mask [3]
+  found ctrl output: \u_core.g_arb[3].u_arb.mask [4]
+  found ctrl output: \u_core.g_arb[3].u_arb.mask [0]
+  ctrl inputs: { $flatten\u_core.\g_arb[3].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y \u_core.g_arb[3].u_arb.grant \rst }
+  ctrl outputs: { $flatten\u_core.\g_arb[3].u_arb.$0\ptr[2:0] \u_core.g_arb[3].u_arb.mask }
+  transition:      3'000 7'0-----0 ->      3'000 8'00011111
+  transition:      3'000 7'1000000 ->      3'000 8'00011111
+  transition:      3'000 7'1000010 ->      3'001 8'00111111
+  transition:      3'000 7'10001-0 ->      3'010 8'01011111
+  transition:      3'000 7'1001--0 ->      3'011 8'01111111
+  transition:      3'000 7'101---0 ->      3'100 8'10011111
+  transition:      3'000 7'11----0 ->      3'000 8'00011111
+  transition:      3'000 7'------1 ->      3'000 8'00011111
+  transition:      3'100 7'0-----0 ->      3'100 8'10010000
+  transition:      3'100 7'1000000 ->      3'100 8'10010000
+  transition:      3'100 7'1000010 ->      3'001 8'00110000
+  transition:      3'100 7'10001-0 ->      3'010 8'01010000
+  transition:      3'100 7'1001--0 ->      3'011 8'01110000
+  transition:      3'100 7'101---0 ->      3'100 8'10010000
+  transition:      3'100 7'11----0 ->      3'000 8'00010000
+  transition:      3'100 7'------1 ->      3'000 8'00010000
+  transition:      3'010 7'0-----0 ->      3'010 8'01011100
+  transition:      3'010 7'1000000 ->      3'010 8'01011100
+  transition:      3'010 7'1000010 ->      3'001 8'00111100
+  transition:      3'010 7'10001-0 ->      3'010 8'01011100
+  transition:      3'010 7'1001--0 ->      3'011 8'01111100
+  transition:      3'010 7'101---0 ->      3'100 8'10011100
+  transition:      3'010 7'11----0 ->      3'000 8'00011100
+  transition:      3'010 7'------1 ->      3'000 8'00011100
+  transition:      3'001 7'0-----0 ->      3'001 8'00111110
+  transition:      3'001 7'1000000 ->      3'001 8'00111110
+  transition:      3'001 7'1000010 ->      3'001 8'00111110
+  transition:      3'001 7'10001-0 ->      3'010 8'01011110
+  transition:      3'001 7'1001--0 ->      3'011 8'01111110
+  transition:      3'001 7'101---0 ->      3'100 8'10011110
+  transition:      3'001 7'11----0 ->      3'000 8'00011110
+  transition:      3'001 7'------1 ->      3'000 8'00011110
+  transition:      3'011 7'0-----0 ->      3'011 8'01111000
+  transition:      3'011 7'1000000 ->      3'011 8'01111000
+  transition:      3'011 7'1000010 ->      3'001 8'00111000
+  transition:      3'011 7'10001-0 ->      3'010 8'01011000
+  transition:      3'011 7'1001--0 ->      3'011 8'01111000
+  transition:      3'011 7'101---0 ->      3'100 8'10011000
+  transition:      3'011 7'11----0 ->      3'000 8'00011000
+  transition:      3'011 7'------1 ->      3'000 8'00011000
+Extracting FSM `\u_core.g_arb[4].u_arb.ptr' from module `\baseline_noc'.
+  found $dff cell for state register: $flatten\u_core.\g_arb[4].u_arb.$procdff$704
+  root of input selection tree: $flatten\u_core.\g_arb[4].u_arb.$0\ptr[2:0]
+  found reset state: 3'000 (guessed from mux tree)
+  found ctrl input: \rst
+  found ctrl input: $flatten\u_core.\g_arb[4].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y
+  found ctrl input: \u_core.g_arb[4].u_arb.grant [4]
+  found ctrl input: \u_core.g_arb[4].u_arb.grant [3]
+  found ctrl input: \u_core.g_arb[4].u_arb.grant [2]
+  found ctrl input: \u_core.g_arb[4].u_arb.grant [1]
+  found ctrl input: \u_core.g_arb[4].u_arb.grant [0]
+  found state code: 3'001
+  found state code: 3'010
+  found state code: 3'011
+  found state code: 3'100
+  found state code: 3'000
+  found ctrl output: \u_core.g_arb[4].u_arb.mask [1]
+  found ctrl output: \u_core.g_arb[4].u_arb.mask [2]
+  found ctrl output: \u_core.g_arb[4].u_arb.mask [3]
+  found ctrl output: \u_core.g_arb[4].u_arb.mask [4]
+  found ctrl output: \u_core.g_arb[4].u_arb.mask [0]
+  ctrl inputs: { $flatten\u_core.\g_arb[4].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y \u_core.g_arb[4].u_arb.grant \rst }
+  ctrl outputs: { $flatten\u_core.\g_arb[4].u_arb.$0\ptr[2:0] \u_core.g_arb[4].u_arb.mask }
+  transition:      3'000 7'0-----0 ->      3'000 8'00011111
+  transition:      3'000 7'1000000 ->      3'000 8'00011111
+  transition:      3'000 7'1000010 ->      3'001 8'00111111
+  transition:      3'000 7'10001-0 ->      3'010 8'01011111
+  transition:      3'000 7'1001--0 ->      3'011 8'01111111
+  transition:      3'000 7'101---0 ->      3'100 8'10011111
+  transition:      3'000 7'11----0 ->      3'000 8'00011111
+  transition:      3'000 7'------1 ->      3'000 8'00011111
+  transition:      3'100 7'0-----0 ->      3'100 8'10010000
+  transition:      3'100 7'1000000 ->      3'100 8'10010000
+  transition:      3'100 7'1000010 ->      3'001 8'00110000
+  transition:      3'100 7'10001-0 ->      3'010 8'01010000
+  transition:      3'100 7'1001--0 ->      3'011 8'01110000
+  transition:      3'100 7'101---0 ->      3'100 8'10010000
+  transition:      3'100 7'11----0 ->      3'000 8'00010000
+  transition:      3'100 7'------1 ->      3'000 8'00010000
+  transition:      3'010 7'0-----0 ->      3'010 8'01011100
+  transition:      3'010 7'1000000 ->      3'010 8'01011100
+  transition:      3'010 7'1000010 ->      3'001 8'00111100
+  transition:      3'010 7'10001-0 ->      3'010 8'01011100
+  transition:      3'010 7'1001--0 ->      3'011 8'01111100
+  transition:      3'010 7'101---0 ->      3'100 8'10011100
+  transition:      3'010 7'11----0 ->      3'000 8'00011100
+  transition:      3'010 7'------1 ->      3'000 8'00011100
+  transition:      3'001 7'0-----0 ->      3'001 8'00111110
+  transition:      3'001 7'1000000 ->      3'001 8'00111110
+  transition:      3'001 7'1000010 ->      3'001 8'00111110
+  transition:      3'001 7'10001-0 ->      3'010 8'01011110
+  transition:      3'001 7'1001--0 ->      3'011 8'01111110
+  transition:      3'001 7'101---0 ->      3'100 8'10011110
+  transition:      3'001 7'11----0 ->      3'000 8'00011110
+  transition:      3'001 7'------1 ->      3'000 8'00011110
+  transition:      3'011 7'0-----0 ->      3'011 8'01111000
+  transition:      3'011 7'1000000 ->      3'011 8'01111000
+  transition:      3'011 7'1000010 ->      3'001 8'00111000
+  transition:      3'011 7'10001-0 ->      3'010 8'01011000
+  transition:      3'011 7'1001--0 ->      3'011 8'01111000
+  transition:      3'011 7'101---0 ->      3'100 8'10011000
+  transition:      3'011 7'11----0 ->      3'000 8'00011000
+  transition:      3'011 7'------1 ->      3'000 8'00011000
+
+11.9.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\u_core.g_arb[4].u_arb.ptr$751' from module `\baseline_noc'.
+  Merging pattern 7'1000000 and 7'1000010 from group (3 3 8'00111110).
+  Merging pattern 7'1000010 and 7'1000000 from group (3 3 8'00111110).
+Optimizing FSM `$fsm$\u_core.g_arb[3].u_arb.ptr$744' from module `\baseline_noc'.
+  Merging pattern 7'1000000 and 7'1000010 from group (3 3 8'00111110).
+  Merging pattern 7'1000010 and 7'1000000 from group (3 3 8'00111110).
+Optimizing FSM `$fsm$\u_core.g_arb[2].u_arb.ptr$737' from module `\baseline_noc'.
+  Merging pattern 7'1000000 and 7'1000010 from group (3 3 8'00111110).
+  Merging pattern 7'1000010 and 7'1000000 from group (3 3 8'00111110).
+Optimizing FSM `$fsm$\u_core.g_arb[1].u_arb.ptr$730' from module `\baseline_noc'.
+  Merging pattern 7'1000000 and 7'1000010 from group (3 3 8'00111110).
+  Merging pattern 7'1000010 and 7'1000000 from group (3 3 8'00111110).
+Optimizing FSM `$fsm$\u_core.g_arb[0].u_arb.ptr$723' from module `\baseline_noc'.
+  Merging pattern 7'1000000 and 7'1000010 from group (3 3 8'00111110).
+  Merging pattern 7'1000010 and 7'1000000 from group (3 3 8'00111110).
+
+11.9.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 65 unused cells and 65 unused wires.
+<suppressed ~71 debug messages>
+
+11.9.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\u_core.g_arb[0].u_arb.ptr$723' from module `\baseline_noc'.
+  Removing unused output signal $flatten\u_core.\g_arb[0].u_arb.$0\ptr[2:0] [0].
+  Removing unused output signal $flatten\u_core.\g_arb[0].u_arb.$0\ptr[2:0] [1].
+  Removing unused output signal $flatten\u_core.\g_arb[0].u_arb.$0\ptr[2:0] [2].
+Optimizing FSM `$fsm$\u_core.g_arb[1].u_arb.ptr$730' from module `\baseline_noc'.
+  Removing unused output signal $flatten\u_core.\g_arb[1].u_arb.$0\ptr[2:0] [0].
+  Removing unused output signal $flatten\u_core.\g_arb[1].u_arb.$0\ptr[2:0] [1].
+  Removing unused output signal $flatten\u_core.\g_arb[1].u_arb.$0\ptr[2:0] [2].
+Optimizing FSM `$fsm$\u_core.g_arb[2].u_arb.ptr$737' from module `\baseline_noc'.
+  Removing unused output signal $flatten\u_core.\g_arb[2].u_arb.$0\ptr[2:0] [0].
+  Removing unused output signal $flatten\u_core.\g_arb[2].u_arb.$0\ptr[2:0] [1].
+  Removing unused output signal $flatten\u_core.\g_arb[2].u_arb.$0\ptr[2:0] [2].
+Optimizing FSM `$fsm$\u_core.g_arb[3].u_arb.ptr$744' from module `\baseline_noc'.
+  Removing unused output signal $flatten\u_core.\g_arb[3].u_arb.$0\ptr[2:0] [0].
+  Removing unused output signal $flatten\u_core.\g_arb[3].u_arb.$0\ptr[2:0] [1].
+  Removing unused output signal $flatten\u_core.\g_arb[3].u_arb.$0\ptr[2:0] [2].
+Optimizing FSM `$fsm$\u_core.g_arb[4].u_arb.ptr$751' from module `\baseline_noc'.
+  Removing unused output signal $flatten\u_core.\g_arb[4].u_arb.$0\ptr[2:0] [0].
+  Removing unused output signal $flatten\u_core.\g_arb[4].u_arb.$0\ptr[2:0] [1].
+  Removing unused output signal $flatten\u_core.\g_arb[4].u_arb.$0\ptr[2:0] [2].
+
+11.9.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\u_core.g_arb[0].u_arb.ptr$723' from module `\baseline_noc' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  000 -> ----1
+  100 -> ---1-
+  010 -> --1--
+  001 -> -1---
+  011 -> 1----
+Recoding FSM `$fsm$\u_core.g_arb[1].u_arb.ptr$730' from module `\baseline_noc' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  000 -> ----1
+  100 -> ---1-
+  010 -> --1--
+  001 -> -1---
+  011 -> 1----
+Recoding FSM `$fsm$\u_core.g_arb[2].u_arb.ptr$737' from module `\baseline_noc' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  000 -> ----1
+  100 -> ---1-
+  010 -> --1--
+  001 -> -1---
+  011 -> 1----
+Recoding FSM `$fsm$\u_core.g_arb[3].u_arb.ptr$744' from module `\baseline_noc' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  000 -> ----1
+  100 -> ---1-
+  010 -> --1--
+  001 -> -1---
+  011 -> 1----
+Recoding FSM `$fsm$\u_core.g_arb[4].u_arb.ptr$751' from module `\baseline_noc' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  000 -> ----1
+  100 -> ---1-
+  010 -> --1--
+  001 -> -1---
+  011 -> 1----
+
+11.9.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\u_core.g_arb[0].u_arb.ptr$723' from module `baseline_noc':
+-------------------------------------
+
+  Information on FSM $fsm$\u_core.g_arb[0].u_arb.ptr$723 (\u_core.g_arb[0].u_arb.ptr):
+
+  Number of input signals:    7
+  Number of output signals:   5
+  Number of state bits:       5
+
+  Input signals:
+    0: \rst
+    1: \u_core.g_arb[0].u_arb.grant [0]
+    2: \u_core.g_arb[0].u_arb.grant [1]
+    3: \u_core.g_arb[0].u_arb.grant [2]
+    4: \u_core.g_arb[0].u_arb.grant [3]
+    5: \u_core.g_arb[0].u_arb.grant [4]
+    6: $flatten\u_core.\g_arb[0].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y
+
+  Output signals:
+    0: \u_core.g_arb[0].u_arb.mask [0]
+    1: \u_core.g_arb[0].u_arb.mask [1]
+    2: \u_core.g_arb[0].u_arb.mask [2]
+    3: \u_core.g_arb[0].u_arb.mask [3]
+    4: \u_core.g_arb[0].u_arb.mask [4]
+
+  State encoding:
+    0:    5'----1  <RESET STATE>
+    1:    5'---1-
+    2:    5'--1--
+    3:    5'-1---
+    4:    5'1----
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 7'1000000   ->     0 5'11111
+      1:     0 7'11----0   ->     0 5'11111
+      2:     0 7'0-----0   ->     0 5'11111
+      3:     0 7'------1   ->     0 5'11111
+      4:     0 7'101---0   ->     1 5'11111
+      5:     0 7'10001-0   ->     2 5'11111
+      6:     0 7'1000010   ->     3 5'11111
+      7:     0 7'1001--0   ->     4 5'11111
+      8:     1 7'11----0   ->     0 5'10000
+      9:     1 7'------1   ->     0 5'10000
+     10:     1 7'1000000   ->     1 5'10000
+     11:     1 7'101---0   ->     1 5'10000
+     12:     1 7'0-----0   ->     1 5'10000
+     13:     1 7'10001-0   ->     2 5'10000
+     14:     1 7'1000010   ->     3 5'10000
+     15:     1 7'1001--0   ->     4 5'10000
+     16:     2 7'11----0   ->     0 5'11100
+     17:     2 7'------1   ->     0 5'11100
+     18:     2 7'101---0   ->     1 5'11100
+     19:     2 7'1000000   ->     2 5'11100
+     20:     2 7'10001-0   ->     2 5'11100
+     21:     2 7'0-----0   ->     2 5'11100
+     22:     2 7'1000010   ->     3 5'11100
+     23:     2 7'1001--0   ->     4 5'11100
+     24:     3 7'11----0   ->     0 5'11110
+     25:     3 7'------1   ->     0 5'11110
+     26:     3 7'101---0   ->     1 5'11110
+     27:     3 7'10001-0   ->     2 5'11110
+     28:     3 7'10000-0   ->     3 5'11110
+     29:     3 7'0-----0   ->     3 5'11110
+     30:     3 7'1001--0   ->     4 5'11110
+     31:     4 7'11----0   ->     0 5'11000
+     32:     4 7'------1   ->     0 5'11000
+     33:     4 7'101---0   ->     1 5'11000
+     34:     4 7'10001-0   ->     2 5'11000
+     35:     4 7'1000010   ->     3 5'11000
+     36:     4 7'1000000   ->     4 5'11000
+     37:     4 7'1001--0   ->     4 5'11000
+     38:     4 7'0-----0   ->     4 5'11000
+
+-------------------------------------
+
+FSM `$fsm$\u_core.g_arb[1].u_arb.ptr$730' from module `baseline_noc':
+-------------------------------------
+
+  Information on FSM $fsm$\u_core.g_arb[1].u_arb.ptr$730 (\u_core.g_arb[1].u_arb.ptr):
+
+  Number of input signals:    7
+  Number of output signals:   5
+  Number of state bits:       5
+
+  Input signals:
+    0: \rst
+    1: \u_core.g_arb[1].u_arb.grant [0]
+    2: \u_core.g_arb[1].u_arb.grant [1]
+    3: \u_core.g_arb[1].u_arb.grant [2]
+    4: \u_core.g_arb[1].u_arb.grant [3]
+    5: \u_core.g_arb[1].u_arb.grant [4]
+    6: $flatten\u_core.\g_arb[1].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y
+
+  Output signals:
+    0: \u_core.g_arb[1].u_arb.mask [0]
+    1: \u_core.g_arb[1].u_arb.mask [1]
+    2: \u_core.g_arb[1].u_arb.mask [2]
+    3: \u_core.g_arb[1].u_arb.mask [3]
+    4: \u_core.g_arb[1].u_arb.mask [4]
+
+  State encoding:
+    0:    5'----1  <RESET STATE>
+    1:    5'---1-
+    2:    5'--1--
+    3:    5'-1---
+    4:    5'1----
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 7'1000000   ->     0 5'11111
+      1:     0 7'11----0   ->     0 5'11111
+      2:     0 7'0-----0   ->     0 5'11111
+      3:     0 7'------1   ->     0 5'11111
+      4:     0 7'101---0   ->     1 5'11111
+      5:     0 7'10001-0   ->     2 5'11111
+      6:     0 7'1000010   ->     3 5'11111
+      7:     0 7'1001--0   ->     4 5'11111
+      8:     1 7'11----0   ->     0 5'10000
+      9:     1 7'------1   ->     0 5'10000
+     10:     1 7'1000000   ->     1 5'10000
+     11:     1 7'101---0   ->     1 5'10000
+     12:     1 7'0-----0   ->     1 5'10000
+     13:     1 7'10001-0   ->     2 5'10000
+     14:     1 7'1000010   ->     3 5'10000
+     15:     1 7'1001--0   ->     4 5'10000
+     16:     2 7'11----0   ->     0 5'11100
+     17:     2 7'------1   ->     0 5'11100
+     18:     2 7'101---0   ->     1 5'11100
+     19:     2 7'1000000   ->     2 5'11100
+     20:     2 7'10001-0   ->     2 5'11100
+     21:     2 7'0-----0   ->     2 5'11100
+     22:     2 7'1000010   ->     3 5'11100
+     23:     2 7'1001--0   ->     4 5'11100
+     24:     3 7'11----0   ->     0 5'11110
+     25:     3 7'------1   ->     0 5'11110
+     26:     3 7'101---0   ->     1 5'11110
+     27:     3 7'10001-0   ->     2 5'11110
+     28:     3 7'10000-0   ->     3 5'11110
+     29:     3 7'0-----0   ->     3 5'11110
+     30:     3 7'1001--0   ->     4 5'11110
+     31:     4 7'11----0   ->     0 5'11000
+     32:     4 7'------1   ->     0 5'11000
+     33:     4 7'101---0   ->     1 5'11000
+     34:     4 7'10001-0   ->     2 5'11000
+     35:     4 7'1000010   ->     3 5'11000
+     36:     4 7'1000000   ->     4 5'11000
+     37:     4 7'1001--0   ->     4 5'11000
+     38:     4 7'0-----0   ->     4 5'11000
+
+-------------------------------------
+
+FSM `$fsm$\u_core.g_arb[2].u_arb.ptr$737' from module `baseline_noc':
+-------------------------------------
+
+  Information on FSM $fsm$\u_core.g_arb[2].u_arb.ptr$737 (\u_core.g_arb[2].u_arb.ptr):
+
+  Number of input signals:    7
+  Number of output signals:   5
+  Number of state bits:       5
+
+  Input signals:
+    0: \rst
+    1: \u_core.g_arb[2].u_arb.grant [0]
+    2: \u_core.g_arb[2].u_arb.grant [1]
+    3: \u_core.g_arb[2].u_arb.grant [2]
+    4: \u_core.g_arb[2].u_arb.grant [3]
+    5: \u_core.g_arb[2].u_arb.grant [4]
+    6: $flatten\u_core.\g_arb[2].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y
+
+  Output signals:
+    0: \u_core.g_arb[2].u_arb.mask [0]
+    1: \u_core.g_arb[2].u_arb.mask [1]
+    2: \u_core.g_arb[2].u_arb.mask [2]
+    3: \u_core.g_arb[2].u_arb.mask [3]
+    4: \u_core.g_arb[2].u_arb.mask [4]
+
+  State encoding:
+    0:    5'----1  <RESET STATE>
+    1:    5'---1-
+    2:    5'--1--
+    3:    5'-1---
+    4:    5'1----
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 7'1000000   ->     0 5'11111
+      1:     0 7'11----0   ->     0 5'11111
+      2:     0 7'0-----0   ->     0 5'11111
+      3:     0 7'------1   ->     0 5'11111
+      4:     0 7'101---0   ->     1 5'11111
+      5:     0 7'10001-0   ->     2 5'11111
+      6:     0 7'1000010   ->     3 5'11111
+      7:     0 7'1001--0   ->     4 5'11111
+      8:     1 7'11----0   ->     0 5'10000
+      9:     1 7'------1   ->     0 5'10000
+     10:     1 7'1000000   ->     1 5'10000
+     11:     1 7'101---0   ->     1 5'10000
+     12:     1 7'0-----0   ->     1 5'10000
+     13:     1 7'10001-0   ->     2 5'10000
+     14:     1 7'1000010   ->     3 5'10000
+     15:     1 7'1001--0   ->     4 5'10000
+     16:     2 7'11----0   ->     0 5'11100
+     17:     2 7'------1   ->     0 5'11100
+     18:     2 7'101---0   ->     1 5'11100
+     19:     2 7'1000000   ->     2 5'11100
+     20:     2 7'10001-0   ->     2 5'11100
+     21:     2 7'0-----0   ->     2 5'11100
+     22:     2 7'1000010   ->     3 5'11100
+     23:     2 7'1001--0   ->     4 5'11100
+     24:     3 7'11----0   ->     0 5'11110
+     25:     3 7'------1   ->     0 5'11110
+     26:     3 7'101---0   ->     1 5'11110
+     27:     3 7'10001-0   ->     2 5'11110
+     28:     3 7'10000-0   ->     3 5'11110
+     29:     3 7'0-----0   ->     3 5'11110
+     30:     3 7'1001--0   ->     4 5'11110
+     31:     4 7'11----0   ->     0 5'11000
+     32:     4 7'------1   ->     0 5'11000
+     33:     4 7'101---0   ->     1 5'11000
+     34:     4 7'10001-0   ->     2 5'11000
+     35:     4 7'1000010   ->     3 5'11000
+     36:     4 7'1000000   ->     4 5'11000
+     37:     4 7'1001--0   ->     4 5'11000
+     38:     4 7'0-----0   ->     4 5'11000
+
+-------------------------------------
+
+FSM `$fsm$\u_core.g_arb[3].u_arb.ptr$744' from module `baseline_noc':
+-------------------------------------
+
+  Information on FSM $fsm$\u_core.g_arb[3].u_arb.ptr$744 (\u_core.g_arb[3].u_arb.ptr):
+
+  Number of input signals:    7
+  Number of output signals:   5
+  Number of state bits:       5
+
+  Input signals:
+    0: \rst
+    1: \u_core.g_arb[3].u_arb.grant [0]
+    2: \u_core.g_arb[3].u_arb.grant [1]
+    3: \u_core.g_arb[3].u_arb.grant [2]
+    4: \u_core.g_arb[3].u_arb.grant [3]
+    5: \u_core.g_arb[3].u_arb.grant [4]
+    6: $flatten\u_core.\g_arb[3].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y
+
+  Output signals:
+    0: \u_core.g_arb[3].u_arb.mask [0]
+    1: \u_core.g_arb[3].u_arb.mask [1]
+    2: \u_core.g_arb[3].u_arb.mask [2]
+    3: \u_core.g_arb[3].u_arb.mask [3]
+    4: \u_core.g_arb[3].u_arb.mask [4]
+
+  State encoding:
+    0:    5'----1  <RESET STATE>
+    1:    5'---1-
+    2:    5'--1--
+    3:    5'-1---
+    4:    5'1----
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 7'1000000   ->     0 5'11111
+      1:     0 7'11----0   ->     0 5'11111
+      2:     0 7'0-----0   ->     0 5'11111
+      3:     0 7'------1   ->     0 5'11111
+      4:     0 7'101---0   ->     1 5'11111
+      5:     0 7'10001-0   ->     2 5'11111
+      6:     0 7'1000010   ->     3 5'11111
+      7:     0 7'1001--0   ->     4 5'11111
+      8:     1 7'11----0   ->     0 5'10000
+      9:     1 7'------1   ->     0 5'10000
+     10:     1 7'1000000   ->     1 5'10000
+     11:     1 7'101---0   ->     1 5'10000
+     12:     1 7'0-----0   ->     1 5'10000
+     13:     1 7'10001-0   ->     2 5'10000
+     14:     1 7'1000010   ->     3 5'10000
+     15:     1 7'1001--0   ->     4 5'10000
+     16:     2 7'11----0   ->     0 5'11100
+     17:     2 7'------1   ->     0 5'11100
+     18:     2 7'101---0   ->     1 5'11100
+     19:     2 7'1000000   ->     2 5'11100
+     20:     2 7'10001-0   ->     2 5'11100
+     21:     2 7'0-----0   ->     2 5'11100
+     22:     2 7'1000010   ->     3 5'11100
+     23:     2 7'1001--0   ->     4 5'11100
+     24:     3 7'11----0   ->     0 5'11110
+     25:     3 7'------1   ->     0 5'11110
+     26:     3 7'101---0   ->     1 5'11110
+     27:     3 7'10001-0   ->     2 5'11110
+     28:     3 7'10000-0   ->     3 5'11110
+     29:     3 7'0-----0   ->     3 5'11110
+     30:     3 7'1001--0   ->     4 5'11110
+     31:     4 7'11----0   ->     0 5'11000
+     32:     4 7'------1   ->     0 5'11000
+     33:     4 7'101---0   ->     1 5'11000
+     34:     4 7'10001-0   ->     2 5'11000
+     35:     4 7'1000010   ->     3 5'11000
+     36:     4 7'1000000   ->     4 5'11000
+     37:     4 7'1001--0   ->     4 5'11000
+     38:     4 7'0-----0   ->     4 5'11000
+
+-------------------------------------
+
+FSM `$fsm$\u_core.g_arb[4].u_arb.ptr$751' from module `baseline_noc':
+-------------------------------------
+
+  Information on FSM $fsm$\u_core.g_arb[4].u_arb.ptr$751 (\u_core.g_arb[4].u_arb.ptr):
+
+  Number of input signals:    7
+  Number of output signals:   5
+  Number of state bits:       5
+
+  Input signals:
+    0: \rst
+    1: \u_core.g_arb[4].u_arb.grant [0]
+    2: \u_core.g_arb[4].u_arb.grant [1]
+    3: \u_core.g_arb[4].u_arb.grant [2]
+    4: \u_core.g_arb[4].u_arb.grant [3]
+    5: \u_core.g_arb[4].u_arb.grant [4]
+    6: $flatten\u_core.\g_arb[4].u_arb.$logic_and$rtl/rr_arbiter.sv:57$311_Y
+
+  Output signals:
+    0: \u_core.g_arb[4].u_arb.mask [0]
+    1: \u_core.g_arb[4].u_arb.mask [1]
+    2: \u_core.g_arb[4].u_arb.mask [2]
+    3: \u_core.g_arb[4].u_arb.mask [3]
+    4: \u_core.g_arb[4].u_arb.mask [4]
+
+  State encoding:
+    0:    5'----1  <RESET STATE>
+    1:    5'---1-
+    2:    5'--1--
+    3:    5'-1---
+    4:    5'1----
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 7'1000000   ->     0 5'11111
+      1:     0 7'11----0   ->     0 5'11111
+      2:     0 7'0-----0   ->     0 5'11111
+      3:     0 7'------1   ->     0 5'11111
+      4:     0 7'101---0   ->     1 5'11111
+      5:     0 7'10001-0   ->     2 5'11111
+      6:     0 7'1000010   ->     3 5'11111
+      7:     0 7'1001--0   ->     4 5'11111
+      8:     1 7'11----0   ->     0 5'10000
+      9:     1 7'------1   ->     0 5'10000
+     10:     1 7'1000000   ->     1 5'10000
+     11:     1 7'101---0   ->     1 5'10000
+     12:     1 7'0-----0   ->     1 5'10000
+     13:     1 7'10001-0   ->     2 5'10000
+     14:     1 7'1000010   ->     3 5'10000
+     15:     1 7'1001--0   ->     4 5'10000
+     16:     2 7'11----0   ->     0 5'11100
+     17:     2 7'------1   ->     0 5'11100
+     18:     2 7'101---0   ->     1 5'11100
+     19:     2 7'1000000   ->     2 5'11100
+     20:     2 7'10001-0   ->     2 5'11100
+     21:     2 7'0-----0   ->     2 5'11100
+     22:     2 7'1000010   ->     3 5'11100
+     23:     2 7'1001--0   ->     4 5'11100
+     24:     3 7'11----0   ->     0 5'11110
+     25:     3 7'------1   ->     0 5'11110
+     26:     3 7'101---0   ->     1 5'11110
+     27:     3 7'10001-0   ->     2 5'11110
+     28:     3 7'10000-0   ->     3 5'11110
+     29:     3 7'0-----0   ->     3 5'11110
+     30:     3 7'1001--0   ->     4 5'11110
+     31:     4 7'11----0   ->     0 5'11000
+     32:     4 7'------1   ->     0 5'11000
+     33:     4 7'101---0   ->     1 5'11000
+     34:     4 7'10001-0   ->     2 5'11000
+     35:     4 7'1000010   ->     3 5'11000
+     36:     4 7'1000000   ->     4 5'11000
+     37:     4 7'1001--0   ->     4 5'11000
+     38:     4 7'0-----0   ->     4 5'11000
+
+-------------------------------------
+
+11.9.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\u_core.g_arb[0].u_arb.ptr$723' from module `\baseline_noc'.
+Mapping FSM `$fsm$\u_core.g_arb[1].u_arb.ptr$730' from module `\baseline_noc'.
+Mapping FSM `$fsm$\u_core.g_arb[2].u_arb.ptr$737' from module `\baseline_noc'.
+Mapping FSM `$fsm$\u_core.g_arb[3].u_arb.ptr$744' from module `\baseline_noc'.
+Mapping FSM `$fsm$\u_core.g_arb[4].u_arb.ptr$751' from module `\baseline_noc'.
+
+11.10. Executing OPT pass (performing simple optimizations).
+
+11.10.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+<suppressed ~30 debug messages>
+
+11.10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 594 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Computing hashes of 559 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+<suppressed ~105 debug messages>
+Removed a total of 35 cells.
+
+11.10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \baseline_noc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~145 debug messages>
+
+11.10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \baseline_noc.
+Performed a total of 0 changes.
+
+11.10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 559 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.10.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $flatten\u_core.$procdff$695 ($dff) from module baseline_noc (D = { $flatten\u_core.$procmux$611_Y $flatten\u_core.$procmux$570_Y $flatten\u_core.$procmux$582_Y $flatten\u_core.$procmux$594_Y $flatten\u_core.$procmux$606_Y }, Q = \u_core.out_valid_q, rval = 5'00000).
+Adding EN signal on $auto$ff.cc:337:slice$1083 ($sdff) from module baseline_noc (D = $flatten\u_core.$procmux$557_CMP, Q = \u_core.out_valid_q [4]).
+Adding EN signal on $auto$ff.cc:337:slice$1083 ($sdff) from module baseline_noc (D = $flatten\u_core.$procmux$564_CMP, Q = \u_core.out_valid_q [3]).
+Adding EN signal on $auto$ff.cc:337:slice$1083 ($sdff) from module baseline_noc (D = $flatten\u_core.$procmux$576_CMP, Q = \u_core.out_valid_q [2]).
+Adding EN signal on $auto$ff.cc:337:slice$1083 ($sdff) from module baseline_noc (D = $flatten\u_core.$procmux$588_CMP, Q = \u_core.out_valid_q [1]).
+Adding EN signal on $auto$ff.cc:337:slice$1083 ($sdff) from module baseline_noc (D = $flatten\u_core.$procmux$600_CMP, Q = \u_core.out_valid_q [0]).
+Adding SRST signal on $flatten\u_core.$procdff$696 ($dff) from module baseline_noc (D = { $flatten\u_core.$procmux$558_Y $flatten\u_core.$procmux$565_Y $flatten\u_core.$procmux$577_Y $flatten\u_core.$procmux$589_Y $flatten\u_core.$procmux$601_Y }, Q = \u_core.out_data_q, rval = 160'0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:337:slice$1089 ($sdff) from module baseline_noc (D = \u_core.xbar_out [159:128], Q = \u_core.out_data_q [159:128]).
+Adding EN signal on $auto$ff.cc:337:slice$1089 ($sdff) from module baseline_noc (D = \u_core.xbar_out [127:96], Q = \u_core.out_data_q [127:96]).
+Adding EN signal on $auto$ff.cc:337:slice$1089 ($sdff) from module baseline_noc (D = \u_core.xbar_out [95:64], Q = \u_core.out_data_q [95:64]).
+Adding EN signal on $auto$ff.cc:337:slice$1089 ($sdff) from module baseline_noc (D = \u_core.xbar_out [63:32], Q = \u_core.out_data_q [63:32]).
+Adding EN signal on $auto$ff.cc:337:slice$1089 ($sdff) from module baseline_noc (D = \u_core.xbar_out [31:0], Q = \u_core.out_data_q [31:0]).
+Adding SRST signal on $flatten\u_core.\g_in[4].u_fifo.$procdff$698 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[4].u_fifo.$procmux$631_Y, Q = \u_core.g_in[4].u_fifo.wptr, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1105 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:61$327_Y, Q = \u_core.g_in[4].u_fifo.wptr).
+Adding SRST signal on $flatten\u_core.\g_in[4].u_fifo.$procdff$699 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[4].u_fifo.$procmux$626_Y, Q = \u_core.g_in[4].u_fifo.rptr, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1107 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:62$328_Y, Q = \u_core.g_in[4].u_fifo.rptr).
+Adding SRST signal on $flatten\u_core.\g_in[4].u_fifo.$procdff$700 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[4].u_fifo.$procmux$620_Y, Q = \u_core.g_in[4].u_fifo.cnt, rval = 3'000).
+Adding EN signal on $auto$ff.cc:337:slice$1109 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[4].u_fifo.$procmux$620_Y, Q = \u_core.g_in[4].u_fifo.cnt).
+Adding SRST signal on $flatten\u_core.\g_in[3].u_fifo.$procdff$698 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[3].u_fifo.$procmux$631_Y, Q = \u_core.g_in[3].u_fifo.wptr, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1113 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:61$327_Y, Q = \u_core.g_in[3].u_fifo.wptr).
+Adding SRST signal on $flatten\u_core.\g_in[3].u_fifo.$procdff$699 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[3].u_fifo.$procmux$626_Y, Q = \u_core.g_in[3].u_fifo.rptr, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1115 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:62$328_Y, Q = \u_core.g_in[3].u_fifo.rptr).
+Adding SRST signal on $flatten\u_core.\g_in[3].u_fifo.$procdff$700 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[3].u_fifo.$procmux$620_Y, Q = \u_core.g_in[3].u_fifo.cnt, rval = 3'000).
+Adding EN signal on $auto$ff.cc:337:slice$1117 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[3].u_fifo.$procmux$620_Y, Q = \u_core.g_in[3].u_fifo.cnt).
+Adding SRST signal on $flatten\u_core.\g_in[2].u_fifo.$procdff$698 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[2].u_fifo.$procmux$631_Y, Q = \u_core.g_in[2].u_fifo.wptr, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1121 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:61$327_Y, Q = \u_core.g_in[2].u_fifo.wptr).
+Adding SRST signal on $flatten\u_core.\g_in[2].u_fifo.$procdff$699 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[2].u_fifo.$procmux$626_Y, Q = \u_core.g_in[2].u_fifo.rptr, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1123 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:62$328_Y, Q = \u_core.g_in[2].u_fifo.rptr).
+Adding SRST signal on $flatten\u_core.\g_in[2].u_fifo.$procdff$700 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[2].u_fifo.$procmux$620_Y, Q = \u_core.g_in[2].u_fifo.cnt, rval = 3'000).
+Adding EN signal on $auto$ff.cc:337:slice$1125 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[2].u_fifo.$procmux$620_Y, Q = \u_core.g_in[2].u_fifo.cnt).
+Adding SRST signal on $flatten\u_core.\g_in[1].u_fifo.$procdff$698 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[1].u_fifo.$procmux$631_Y, Q = \u_core.g_in[1].u_fifo.wptr, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1129 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:61$327_Y, Q = \u_core.g_in[1].u_fifo.wptr).
+Adding SRST signal on $flatten\u_core.\g_in[1].u_fifo.$procdff$699 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[1].u_fifo.$procmux$626_Y, Q = \u_core.g_in[1].u_fifo.rptr, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1131 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:62$328_Y, Q = \u_core.g_in[1].u_fifo.rptr).
+Adding SRST signal on $flatten\u_core.\g_in[1].u_fifo.$procdff$700 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[1].u_fifo.$procmux$620_Y, Q = \u_core.g_in[1].u_fifo.cnt, rval = 3'000).
+Adding EN signal on $auto$ff.cc:337:slice$1133 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[1].u_fifo.$procmux$620_Y, Q = \u_core.g_in[1].u_fifo.cnt).
+Adding SRST signal on $flatten\u_core.\g_in[0].u_fifo.$procdff$698 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[0].u_fifo.$procmux$631_Y, Q = \u_core.g_in[0].u_fifo.wptr, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1137 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:61$327_Y, Q = \u_core.g_in[0].u_fifo.wptr).
+Adding SRST signal on $flatten\u_core.\g_in[0].u_fifo.$procdff$699 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[0].u_fifo.$procmux$626_Y, Q = \u_core.g_in[0].u_fifo.rptr, rval = 2'00).
+Adding EN signal on $auto$ff.cc:337:slice$1139 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:62$328_Y, Q = \u_core.g_in[0].u_fifo.rptr).
+Adding SRST signal on $flatten\u_core.\g_in[0].u_fifo.$procdff$700 ($dff) from module baseline_noc (D = $flatten\u_core.\g_in[0].u_fifo.$procmux$620_Y, Q = \u_core.g_in[0].u_fifo.cnt, rval = 3'000).
+Adding EN signal on $auto$ff.cc:337:slice$1141 ($sdff) from module baseline_noc (D = $flatten\u_core.\g_in[0].u_fifo.$procmux$620_Y, Q = \u_core.g_in[0].u_fifo.cnt).
+
+11.10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 50 unused cells and 97 unused wires.
+<suppressed ~51 debug messages>
+
+11.10.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+<suppressed ~5 debug messages>
+
+11.10.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+11.10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \baseline_noc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~75 debug messages>
+
+11.10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \baseline_noc.
+Performed a total of 0 changes.
+
+11.10.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 527 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.10.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+
+11.10.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+
+11.10.16. Finished fast OPT passes. (There is nothing left to do.)
+
+11.11. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[4].u_route.$lt$rtl/xy_route.sv:23$23 ($lt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[4].u_route.$gt$rtl/xy_route.sv:24$24 ($gt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[4].u_route.$lt$rtl/xy_route.sv:25$25 ($lt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[4].u_fifo.$procmux$621_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[3].u_route.$lt$rtl/xy_route.sv:23$23 ($lt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[3].u_route.$gt$rtl/xy_route.sv:24$24 ($gt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[3].u_route.$lt$rtl/xy_route.sv:25$25 ($lt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[3].u_fifo.$procmux$621_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[2].u_route.$lt$rtl/xy_route.sv:23$23 ($lt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[2].u_route.$gt$rtl/xy_route.sv:24$24 ($gt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[2].u_route.$lt$rtl/xy_route.sv:25$25 ($lt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[2].u_fifo.$procmux$621_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[1].u_route.$lt$rtl/xy_route.sv:23$23 ($lt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[1].u_route.$gt$rtl/xy_route.sv:24$24 ($gt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[1].u_route.$lt$rtl/xy_route.sv:25$25 ($lt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[1].u_fifo.$procmux$621_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[0].u_route.$lt$rtl/xy_route.sv:23$23 ($lt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[0].u_route.$gt$rtl/xy_route.sv:24$24 ($gt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[0].u_route.$lt$rtl/xy_route.sv:25$25 ($lt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[0].u_fifo.$procmux$621_CMP0 ($eq).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[4].u_route.$gt$rtl/xy_route.sv:22$22 ($gt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[3].u_route.$gt$rtl/xy_route.sv:22$22 ($gt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[2].u_route.$gt$rtl/xy_route.sv:22$22 ($gt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[1].u_route.$gt$rtl/xy_route.sv:22$22 ($gt).
+Removed top 1 bits (of 2) from port B of cell baseline_noc.$flatten\u_core.\g_in[0].u_route.$gt$rtl/xy_route.sv:22$22 ($gt).
+Removed top 1 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$454 ($eq).
+Removed top 1 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$451 ($eq).
+Removed top 1 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$448 ($eq).
+Removed top 1 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$445 ($eq).
+Removed top 1 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$442 ($eq).
+Removed top 1 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$439 ($eq).
+Removed top 1 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$436 ($eq).
+Removed top 1 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$433 ($eq).
+Removed top 1 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$430 ($eq).
+Removed top 1 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$427 ($eq).
+Removed top 2 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$424 ($eq).
+Removed top 2 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$421 ($eq).
+Removed top 2 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$418 ($eq).
+Removed top 2 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$415 ($eq).
+Removed top 2 bits (of 3) from port B of cell baseline_noc.$flatten\u_core.$eq$rtl/router_core.sv:86$412 ($eq).
+
+11.12. Executing PEEPOPT pass (run peephole optimizers).
+
+11.13. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+
+11.14. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module baseline_noc:
+  creating $macc model for $flatten\u_core.\g_in[0].u_fifo.$sub$rtl/sync_fifo.sv:65$330 ($sub).
+  creating $macc model for $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:64$329 ($add).
+  creating $macc model for $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:62$328 ($add).
+  creating $macc model for $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:61$327 ($add).
+  creating $macc model for $flatten\u_core.\g_in[1].u_fifo.$sub$rtl/sync_fifo.sv:65$330 ($sub).
+  creating $macc model for $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:64$329 ($add).
+  creating $macc model for $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:62$328 ($add).
+  creating $macc model for $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:61$327 ($add).
+  creating $macc model for $flatten\u_core.\g_in[2].u_fifo.$sub$rtl/sync_fifo.sv:65$330 ($sub).
+  creating $macc model for $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:64$329 ($add).
+  creating $macc model for $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:62$328 ($add).
+  creating $macc model for $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:61$327 ($add).
+  creating $macc model for $flatten\u_core.\g_in[3].u_fifo.$sub$rtl/sync_fifo.sv:65$330 ($sub).
+  creating $macc model for $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:64$329 ($add).
+  creating $macc model for $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:62$328 ($add).
+  creating $macc model for $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:61$327 ($add).
+  creating $macc model for $flatten\u_core.\g_in[4].u_fifo.$sub$rtl/sync_fifo.sv:65$330 ($sub).
+  creating $macc model for $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:64$329 ($add).
+  creating $macc model for $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:62$328 ($add).
+  creating $macc model for $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:61$327 ($add).
+  creating $macc model for $flatten\u_core.\g_arb[0].u_arb.$sub$rtl/rr_arbiter.sv:43$302 ($sub).
+  creating $macc model for $flatten\u_core.\g_arb[0].u_arb.$sub$rtl/rr_arbiter.sv:42$299 ($sub).
+  creating $macc model for $flatten\u_core.\g_arb[1].u_arb.$sub$rtl/rr_arbiter.sv:43$302 ($sub).
+  creating $macc model for $flatten\u_core.\g_arb[1].u_arb.$sub$rtl/rr_arbiter.sv:42$299 ($sub).
+  creating $macc model for $flatten\u_core.\g_arb[2].u_arb.$sub$rtl/rr_arbiter.sv:43$302 ($sub).
+  creating $macc model for $flatten\u_core.\g_arb[2].u_arb.$sub$rtl/rr_arbiter.sv:42$299 ($sub).
+  creating $macc model for $flatten\u_core.\g_arb[3].u_arb.$sub$rtl/rr_arbiter.sv:43$302 ($sub).
+  creating $macc model for $flatten\u_core.\g_arb[3].u_arb.$sub$rtl/rr_arbiter.sv:42$299 ($sub).
+  creating $macc model for $flatten\u_core.\g_arb[4].u_arb.$sub$rtl/rr_arbiter.sv:43$302 ($sub).
+  creating $macc model for $flatten\u_core.\g_arb[4].u_arb.$sub$rtl/rr_arbiter.sv:42$299 ($sub).
+  creating $alu model for $macc $flatten\u_core.\g_arb[4].u_arb.$sub$rtl/rr_arbiter.sv:42$299.
+  creating $alu model for $macc $flatten\u_core.\g_arb[4].u_arb.$sub$rtl/rr_arbiter.sv:43$302.
+  creating $alu model for $macc $flatten\u_core.\g_arb[3].u_arb.$sub$rtl/rr_arbiter.sv:42$299.
+  creating $alu model for $macc $flatten\u_core.\g_arb[3].u_arb.$sub$rtl/rr_arbiter.sv:43$302.
+  creating $alu model for $macc $flatten\u_core.\g_arb[2].u_arb.$sub$rtl/rr_arbiter.sv:42$299.
+  creating $alu model for $macc $flatten\u_core.\g_arb[2].u_arb.$sub$rtl/rr_arbiter.sv:43$302.
+  creating $alu model for $macc $flatten\u_core.\g_arb[1].u_arb.$sub$rtl/rr_arbiter.sv:42$299.
+  creating $alu model for $macc $flatten\u_core.\g_arb[1].u_arb.$sub$rtl/rr_arbiter.sv:43$302.
+  creating $alu model for $macc $flatten\u_core.\g_arb[0].u_arb.$sub$rtl/rr_arbiter.sv:42$299.
+  creating $alu model for $macc $flatten\u_core.\g_arb[0].u_arb.$sub$rtl/rr_arbiter.sv:43$302.
+  creating $alu model for $macc $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:61$327.
+  creating $alu model for $macc $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:62$328.
+  creating $alu model for $macc $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:64$329.
+  creating $alu model for $macc $flatten\u_core.\g_in[4].u_fifo.$sub$rtl/sync_fifo.sv:65$330.
+  creating $alu model for $macc $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:61$327.
+  creating $alu model for $macc $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:62$328.
+  creating $alu model for $macc $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:64$329.
+  creating $alu model for $macc $flatten\u_core.\g_in[3].u_fifo.$sub$rtl/sync_fifo.sv:65$330.
+  creating $alu model for $macc $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:61$327.
+  creating $alu model for $macc $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:62$328.
+  creating $alu model for $macc $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:64$329.
+  creating $alu model for $macc $flatten\u_core.\g_in[2].u_fifo.$sub$rtl/sync_fifo.sv:65$330.
+  creating $alu model for $macc $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:61$327.
+  creating $alu model for $macc $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:62$328.
+  creating $alu model for $macc $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:64$329.
+  creating $alu model for $macc $flatten\u_core.\g_in[1].u_fifo.$sub$rtl/sync_fifo.sv:65$330.
+  creating $alu model for $macc $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:61$327.
+  creating $alu model for $macc $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:62$328.
+  creating $alu model for $macc $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:64$329.
+  creating $alu model for $macc $flatten\u_core.\g_in[0].u_fifo.$sub$rtl/sync_fifo.sv:65$330.
+  creating $alu model for $flatten\u_core.\g_in[3].u_route.$gt$rtl/xy_route.sv:22$22 ($gt): new $alu
+  creating $alu model for $flatten\u_core.\g_in[4].u_route.$gt$rtl/xy_route.sv:22$22 ($gt): new $alu
+  creating $alu model for $flatten\u_core.\g_in[2].u_route.$gt$rtl/xy_route.sv:22$22 ($gt): new $alu
+  creating $alu model for $flatten\u_core.\g_in[0].u_route.$lt$rtl/xy_route.sv:25$25 ($lt): new $alu
+  creating $alu model for $flatten\u_core.\g_in[0].u_route.$gt$rtl/xy_route.sv:24$24 ($gt): merged with $flatten\u_core.\g_in[0].u_route.$lt$rtl/xy_route.sv:25$25.
+  creating $alu model for $flatten\u_core.\g_in[0].u_route.$lt$rtl/xy_route.sv:23$23 ($lt): new $alu
+  creating $alu model for $flatten\u_core.\g_in[1].u_route.$lt$rtl/xy_route.sv:25$25 ($lt): new $alu
+  creating $alu model for $flatten\u_core.\g_in[1].u_route.$gt$rtl/xy_route.sv:24$24 ($gt): merged with $flatten\u_core.\g_in[1].u_route.$lt$rtl/xy_route.sv:25$25.
+  creating $alu model for $flatten\u_core.\g_in[1].u_route.$lt$rtl/xy_route.sv:23$23 ($lt): new $alu
+  creating $alu model for $flatten\u_core.\g_in[2].u_route.$lt$rtl/xy_route.sv:25$25 ($lt): new $alu
+  creating $alu model for $flatten\u_core.\g_in[2].u_route.$gt$rtl/xy_route.sv:24$24 ($gt): merged with $flatten\u_core.\g_in[2].u_route.$lt$rtl/xy_route.sv:25$25.
+  creating $alu model for $flatten\u_core.\g_in[2].u_route.$lt$rtl/xy_route.sv:23$23 ($lt): merged with $flatten\u_core.\g_in[2].u_route.$gt$rtl/xy_route.sv:22$22.
+  creating $alu model for $flatten\u_core.\g_in[3].u_route.$lt$rtl/xy_route.sv:25$25 ($lt): new $alu
+  creating $alu model for $flatten\u_core.\g_in[3].u_route.$gt$rtl/xy_route.sv:24$24 ($gt): merged with $flatten\u_core.\g_in[3].u_route.$lt$rtl/xy_route.sv:25$25.
+  creating $alu model for $flatten\u_core.\g_in[3].u_route.$lt$rtl/xy_route.sv:23$23 ($lt): merged with $flatten\u_core.\g_in[3].u_route.$gt$rtl/xy_route.sv:22$22.
+  creating $alu model for $flatten\u_core.\g_in[4].u_route.$lt$rtl/xy_route.sv:25$25 ($lt): new $alu
+  creating $alu model for $flatten\u_core.\g_in[4].u_route.$gt$rtl/xy_route.sv:24$24 ($gt): merged with $flatten\u_core.\g_in[4].u_route.$lt$rtl/xy_route.sv:25$25.
+  creating $alu model for $flatten\u_core.\g_in[4].u_route.$lt$rtl/xy_route.sv:23$23 ($lt): merged with $flatten\u_core.\g_in[4].u_route.$gt$rtl/xy_route.sv:22$22.
+  creating $alu model for $flatten\u_core.\g_in[1].u_route.$gt$rtl/xy_route.sv:22$22 ($gt): merged with $flatten\u_core.\g_in[1].u_route.$lt$rtl/xy_route.sv:23$23.
+  creating $alu model for $flatten\u_core.\g_in[0].u_route.$gt$rtl/xy_route.sv:22$22 ($gt): merged with $flatten\u_core.\g_in[0].u_route.$lt$rtl/xy_route.sv:23$23.
+  creating $alu cell for $flatten\u_core.\g_in[4].u_route.$lt$rtl/xy_route.sv:25$25, $flatten\u_core.\g_in[4].u_route.$gt$rtl/xy_route.sv:24$24: $auto$alumacc.cc:548:replace_alu$1155
+  creating $alu cell for $flatten\u_core.\g_in[3].u_route.$lt$rtl/xy_route.sv:25$25, $flatten\u_core.\g_in[3].u_route.$gt$rtl/xy_route.sv:24$24: $auto$alumacc.cc:548:replace_alu$1166
+  creating $alu cell for $flatten\u_core.\g_in[2].u_route.$lt$rtl/xy_route.sv:25$25, $flatten\u_core.\g_in[2].u_route.$gt$rtl/xy_route.sv:24$24: $auto$alumacc.cc:548:replace_alu$1177
+  creating $alu cell for $flatten\u_core.\g_in[1].u_route.$lt$rtl/xy_route.sv:23$23, $flatten\u_core.\g_in[1].u_route.$gt$rtl/xy_route.sv:22$22: $auto$alumacc.cc:548:replace_alu$1188
+  creating $alu cell for $flatten\u_core.\g_in[1].u_route.$lt$rtl/xy_route.sv:25$25, $flatten\u_core.\g_in[1].u_route.$gt$rtl/xy_route.sv:24$24: $auto$alumacc.cc:548:replace_alu$1199
+  creating $alu cell for $flatten\u_core.\g_in[0].u_route.$lt$rtl/xy_route.sv:23$23, $flatten\u_core.\g_in[0].u_route.$gt$rtl/xy_route.sv:22$22: $auto$alumacc.cc:548:replace_alu$1210
+  creating $alu cell for $flatten\u_core.\g_in[0].u_route.$lt$rtl/xy_route.sv:25$25, $flatten\u_core.\g_in[0].u_route.$gt$rtl/xy_route.sv:24$24: $auto$alumacc.cc:548:replace_alu$1221
+  creating $alu cell for $flatten\u_core.\g_in[2].u_route.$gt$rtl/xy_route.sv:22$22, $flatten\u_core.\g_in[2].u_route.$lt$rtl/xy_route.sv:23$23: $auto$alumacc.cc:548:replace_alu$1232
+  creating $alu cell for $flatten\u_core.\g_in[4].u_route.$gt$rtl/xy_route.sv:22$22, $flatten\u_core.\g_in[4].u_route.$lt$rtl/xy_route.sv:23$23: $auto$alumacc.cc:548:replace_alu$1243
+  creating $alu cell for $flatten\u_core.\g_in[3].u_route.$gt$rtl/xy_route.sv:22$22, $flatten\u_core.\g_in[3].u_route.$lt$rtl/xy_route.sv:23$23: $auto$alumacc.cc:548:replace_alu$1254
+  creating $alu cell for $flatten\u_core.\g_in[0].u_fifo.$sub$rtl/sync_fifo.sv:65$330: $auto$alumacc.cc:548:replace_alu$1265
+  creating $alu cell for $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:64$329: $auto$alumacc.cc:548:replace_alu$1268
+  creating $alu cell for $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:62$328: $auto$alumacc.cc:548:replace_alu$1271
+  creating $alu cell for $flatten\u_core.\g_in[0].u_fifo.$add$rtl/sync_fifo.sv:61$327: $auto$alumacc.cc:548:replace_alu$1274
+  creating $alu cell for $flatten\u_core.\g_in[1].u_fifo.$sub$rtl/sync_fifo.sv:65$330: $auto$alumacc.cc:548:replace_alu$1277
+  creating $alu cell for $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:64$329: $auto$alumacc.cc:548:replace_alu$1280
+  creating $alu cell for $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:62$328: $auto$alumacc.cc:548:replace_alu$1283
+  creating $alu cell for $flatten\u_core.\g_in[1].u_fifo.$add$rtl/sync_fifo.sv:61$327: $auto$alumacc.cc:548:replace_alu$1286
+  creating $alu cell for $flatten\u_core.\g_in[2].u_fifo.$sub$rtl/sync_fifo.sv:65$330: $auto$alumacc.cc:548:replace_alu$1289
+  creating $alu cell for $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:64$329: $auto$alumacc.cc:548:replace_alu$1292
+  creating $alu cell for $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:62$328: $auto$alumacc.cc:548:replace_alu$1295
+  creating $alu cell for $flatten\u_core.\g_in[2].u_fifo.$add$rtl/sync_fifo.sv:61$327: $auto$alumacc.cc:548:replace_alu$1298
+  creating $alu cell for $flatten\u_core.\g_in[3].u_fifo.$sub$rtl/sync_fifo.sv:65$330: $auto$alumacc.cc:548:replace_alu$1301
+  creating $alu cell for $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:64$329: $auto$alumacc.cc:548:replace_alu$1304
+  creating $alu cell for $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:62$328: $auto$alumacc.cc:548:replace_alu$1307
+  creating $alu cell for $flatten\u_core.\g_in[3].u_fifo.$add$rtl/sync_fifo.sv:61$327: $auto$alumacc.cc:548:replace_alu$1310
+  creating $alu cell for $flatten\u_core.\g_in[4].u_fifo.$sub$rtl/sync_fifo.sv:65$330: $auto$alumacc.cc:548:replace_alu$1313
+  creating $alu cell for $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:64$329: $auto$alumacc.cc:548:replace_alu$1316
+  creating $alu cell for $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:62$328: $auto$alumacc.cc:548:replace_alu$1319
+  creating $alu cell for $flatten\u_core.\g_in[4].u_fifo.$add$rtl/sync_fifo.sv:61$327: $auto$alumacc.cc:548:replace_alu$1322
+  creating $alu cell for $flatten\u_core.\g_arb[0].u_arb.$sub$rtl/rr_arbiter.sv:43$302: $auto$alumacc.cc:548:replace_alu$1325
+  creating $alu cell for $flatten\u_core.\g_arb[0].u_arb.$sub$rtl/rr_arbiter.sv:42$299: $auto$alumacc.cc:548:replace_alu$1328
+  creating $alu cell for $flatten\u_core.\g_arb[1].u_arb.$sub$rtl/rr_arbiter.sv:43$302: $auto$alumacc.cc:548:replace_alu$1331
+  creating $alu cell for $flatten\u_core.\g_arb[1].u_arb.$sub$rtl/rr_arbiter.sv:42$299: $auto$alumacc.cc:548:replace_alu$1334
+  creating $alu cell for $flatten\u_core.\g_arb[2].u_arb.$sub$rtl/rr_arbiter.sv:43$302: $auto$alumacc.cc:548:replace_alu$1337
+  creating $alu cell for $flatten\u_core.\g_arb[2].u_arb.$sub$rtl/rr_arbiter.sv:42$299: $auto$alumacc.cc:548:replace_alu$1340
+  creating $alu cell for $flatten\u_core.\g_arb[3].u_arb.$sub$rtl/rr_arbiter.sv:43$302: $auto$alumacc.cc:548:replace_alu$1343
+  creating $alu cell for $flatten\u_core.\g_arb[3].u_arb.$sub$rtl/rr_arbiter.sv:42$299: $auto$alumacc.cc:548:replace_alu$1346
+  creating $alu cell for $flatten\u_core.\g_arb[4].u_arb.$sub$rtl/rr_arbiter.sv:43$302: $auto$alumacc.cc:548:replace_alu$1349
+  creating $alu cell for $flatten\u_core.\g_arb[4].u_arb.$sub$rtl/rr_arbiter.sv:42$299: $auto$alumacc.cc:548:replace_alu$1352
+  created 40 $alu and 0 $macc cells.
+
+11.15. Executing SHARE pass (SAT-based resource sharing).
+
+11.16. Executing OPT pass (performing simple optimizations).
+
+11.16.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+<suppressed ~20 debug messages>
+
+11.16.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 557 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.16.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \baseline_noc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~75 debug messages>
+
+11.16.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \baseline_noc.
+Performed a total of 0 changes.
+
+11.16.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 557 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.16.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.16.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 10 unused cells and 30 unused wires.
+<suppressed ~11 debug messages>
+
+11.16.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+
+11.16.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+11.16.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \baseline_noc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~75 debug messages>
+
+11.16.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \baseline_noc.
+Performed a total of 0 changes.
+
+11.16.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 547 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.16.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.16.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+
+11.16.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+
+11.16.16. Finished fast OPT passes. (There is nothing left to do.)
+
+11.17. Executing MEMORY pass.
+
+11.17.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+11.17.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+11.17.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+  Analyzing baseline_noc.u_core.g_in[0].u_fifo.mem write port 0.
+  Analyzing baseline_noc.u_core.g_in[1].u_fifo.mem write port 0.
+  Analyzing baseline_noc.u_core.g_in[2].u_fifo.mem write port 0.
+  Analyzing baseline_noc.u_core.g_in[3].u_fifo.mem write port 0.
+  Analyzing baseline_noc.u_core.g_in[4].u_fifo.mem write port 0.
+
+11.17.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+11.17.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+
+11.17.6. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+11.17.7. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+11.17.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+
+11.17.9. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+11.18. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+
+11.19. Executing OPT pass (performing simple optimizations).
+
+11.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+<suppressed ~20 debug messages>
+
+11.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 527 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.19.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.19.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 0 unused cells and 15 unused wires.
+<suppressed ~1 debug messages>
+
+11.19.5. Finished fast OPT passes.
+
+11.20. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+Mapping memory \u_core.g_in[0].u_fifo.mem in module \baseline_noc:
+  created 4 $dff cells and 0 static cells of width 32.
+  read interface: 0 $dff and 3 $mux cells.
+  write interface: 4 write mux blocks.
+Mapping memory \u_core.g_in[1].u_fifo.mem in module \baseline_noc:
+  created 4 $dff cells and 0 static cells of width 32.
+  read interface: 0 $dff and 3 $mux cells.
+  write interface: 4 write mux blocks.
+Mapping memory \u_core.g_in[2].u_fifo.mem in module \baseline_noc:
+  created 4 $dff cells and 0 static cells of width 32.
+  read interface: 0 $dff and 3 $mux cells.
+  write interface: 4 write mux blocks.
+Mapping memory \u_core.g_in[3].u_fifo.mem in module \baseline_noc:
+  created 4 $dff cells and 0 static cells of width 32.
+  read interface: 0 $dff and 3 $mux cells.
+  write interface: 4 write mux blocks.
+Mapping memory \u_core.g_in[4].u_fifo.mem in module \baseline_noc:
+  created 4 $dff cells and 0 static cells of width 32.
+  read interface: 0 $dff and 3 $mux cells.
+  write interface: 4 write mux blocks.
+
+11.21. Executing OPT pass (performing simple optimizations).
+
+11.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+<suppressed ~20 debug messages>
+
+11.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 627 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.21.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \baseline_noc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~105 debug messages>
+
+11.21.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \baseline_noc.
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[0].u_route.$procmux$646:
+      Old ports: A=3'001, B=3'100, Y=$flatten\u_core.\g_in[0].u_route.$4\out_port[2:0]
+      New ports: A=2'01, B=2'10, Y={ $flatten\u_core.\g_in[0].u_route.$4\out_port[2:0] [2] $flatten\u_core.\g_in[0].u_route.$4\out_port[2:0] [0] }
+      New connections: $flatten\u_core.\g_in[0].u_route.$4\out_port[2:0] [1] = 1'0
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[1].u_route.$procmux$646:
+      Old ports: A=3'001, B=3'100, Y=$flatten\u_core.\g_in[1].u_route.$4\out_port[2:0]
+      New ports: A=2'01, B=2'10, Y={ $flatten\u_core.\g_in[1].u_route.$4\out_port[2:0] [2] $flatten\u_core.\g_in[1].u_route.$4\out_port[2:0] [0] }
+      New connections: $flatten\u_core.\g_in[1].u_route.$4\out_port[2:0] [1] = 1'0
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[2].u_route.$procmux$646:
+      Old ports: A=3'001, B=3'100, Y=$flatten\u_core.\g_in[2].u_route.$4\out_port[2:0]
+      New ports: A=2'01, B=2'10, Y={ $flatten\u_core.\g_in[2].u_route.$4\out_port[2:0] [2] $flatten\u_core.\g_in[2].u_route.$4\out_port[2:0] [0] }
+      New connections: $flatten\u_core.\g_in[2].u_route.$4\out_port[2:0] [1] = 1'0
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[3].u_route.$procmux$646:
+      Old ports: A=3'001, B=3'100, Y=$flatten\u_core.\g_in[3].u_route.$4\out_port[2:0]
+      New ports: A=2'01, B=2'10, Y={ $flatten\u_core.\g_in[3].u_route.$4\out_port[2:0] [2] $flatten\u_core.\g_in[3].u_route.$4\out_port[2:0] [0] }
+      New connections: $flatten\u_core.\g_in[3].u_route.$4\out_port[2:0] [1] = 1'0
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[4].u_route.$procmux$646:
+      Old ports: A=3'001, B=3'100, Y=$flatten\u_core.\g_in[4].u_route.$4\out_port[2:0]
+      New ports: A=2'01, B=2'10, Y={ $flatten\u_core.\g_in[4].u_route.$4\out_port[2:0] [2] $flatten\u_core.\g_in[4].u_route.$4\out_port[2:0] [0] }
+      New connections: $flatten\u_core.\g_in[4].u_route.$4\out_port[2:0] [1] = 1'0
+  Optimizing cells in module \baseline_noc.
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[0].u_route.$procmux$658:
+      Old ports: A=3'000, B=$flatten\u_core.\g_in[0].u_route.$4\out_port[2:0], Y=$flatten\u_core.\g_in[0].u_route.$3\out_port[2:0]
+      New ports: A=2'00, B={ $flatten\u_core.\g_in[0].u_route.$4\out_port[2:0] [2] $flatten\u_core.\g_in[0].u_route.$4\out_port[2:0] [0] }, Y={ $flatten\u_core.\g_in[0].u_route.$3\out_port[2:0] [2] $flatten\u_core.\g_in[0].u_route.$3\out_port[2:0] [0] }
+      New connections: $flatten\u_core.\g_in[0].u_route.$3\out_port[2:0] [1] = 1'0
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[1].u_route.$procmux$658:
+      Old ports: A=3'000, B=$flatten\u_core.\g_in[1].u_route.$4\out_port[2:0], Y=$flatten\u_core.\g_in[1].u_route.$3\out_port[2:0]
+      New ports: A=2'00, B={ $flatten\u_core.\g_in[1].u_route.$4\out_port[2:0] [2] $flatten\u_core.\g_in[1].u_route.$4\out_port[2:0] [0] }, Y={ $flatten\u_core.\g_in[1].u_route.$3\out_port[2:0] [2] $flatten\u_core.\g_in[1].u_route.$3\out_port[2:0] [0] }
+      New connections: $flatten\u_core.\g_in[1].u_route.$3\out_port[2:0] [1] = 1'0
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[2].u_route.$procmux$658:
+      Old ports: A=3'000, B=$flatten\u_core.\g_in[2].u_route.$4\out_port[2:0], Y=$flatten\u_core.\g_in[2].u_route.$3\out_port[2:0]
+      New ports: A=2'00, B={ $flatten\u_core.\g_in[2].u_route.$4\out_port[2:0] [2] $flatten\u_core.\g_in[2].u_route.$4\out_port[2:0] [0] }, Y={ $flatten\u_core.\g_in[2].u_route.$3\out_port[2:0] [2] $flatten\u_core.\g_in[2].u_route.$3\out_port[2:0] [0] }
+      New connections: $flatten\u_core.\g_in[2].u_route.$3\out_port[2:0] [1] = 1'0
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[3].u_route.$procmux$658:
+      Old ports: A=3'000, B=$flatten\u_core.\g_in[3].u_route.$4\out_port[2:0], Y=$flatten\u_core.\g_in[3].u_route.$3\out_port[2:0]
+      New ports: A=2'00, B={ $flatten\u_core.\g_in[3].u_route.$4\out_port[2:0] [2] $flatten\u_core.\g_in[3].u_route.$4\out_port[2:0] [0] }, Y={ $flatten\u_core.\g_in[3].u_route.$3\out_port[2:0] [2] $flatten\u_core.\g_in[3].u_route.$3\out_port[2:0] [0] }
+      New connections: $flatten\u_core.\g_in[3].u_route.$3\out_port[2:0] [1] = 1'0
+    Consolidated identical input bits for $mux cell $flatten\u_core.\g_in[4].u_route.$procmux$658:
+      Old ports: A=3'000, B=$flatten\u_core.\g_in[4].u_route.$4\out_port[2:0], Y=$flatten\u_core.\g_in[4].u_route.$3\out_port[2:0]
+      New ports: A=2'00, B={ $flatten\u_core.\g_in[4].u_route.$4\out_port[2:0] [2] $flatten\u_core.\g_in[4].u_route.$4\out_port[2:0] [0] }, Y={ $flatten\u_core.\g_in[4].u_route.$3\out_port[2:0] [2] $flatten\u_core.\g_in[4].u_route.$3\out_port[2:0] [0] }
+      New connections: $flatten\u_core.\g_in[4].u_route.$3\out_port[2:0] [1] = 1'0
+  Optimizing cells in module \baseline_noc.
+Performed a total of 10 changes.
+
+11.21.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 627 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.21.6. Executing OPT_SHARE pass.
+    Found cells that share an operand and can be merged by moving the $mux $flatten\u_core.\g_in[0].u_fifo.$procmux$620 in front of them:
+        $auto$alumacc.cc:548:replace_alu$1265
+        $auto$alumacc.cc:548:replace_alu$1268
+
+    Found cells that share an operand and can be merged by moving the $mux $flatten\u_core.\g_in[1].u_fifo.$procmux$620 in front of them:
+        $auto$alumacc.cc:548:replace_alu$1277
+        $auto$alumacc.cc:548:replace_alu$1280
+
+    Found cells that share an operand and can be merged by moving the $mux $flatten\u_core.\g_in[2].u_fifo.$procmux$620 in front of them:
+        $auto$alumacc.cc:548:replace_alu$1289
+        $auto$alumacc.cc:548:replace_alu$1292
+
+    Found cells that share an operand and can be merged by moving the $mux $flatten\u_core.\g_in[3].u_fifo.$procmux$620 in front of them:
+        $auto$alumacc.cc:548:replace_alu$1301
+        $auto$alumacc.cc:548:replace_alu$1304
+
+    Found cells that share an operand and can be merged by moving the $mux $flatten\u_core.\g_in[4].u_fifo.$procmux$620 in front of them:
+        $auto$alumacc.cc:548:replace_alu$1313
+        $auto$alumacc.cc:548:replace_alu$1316
+
+11.21.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.21.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 0 unused cells and 80 unused wires.
+<suppressed ~1 debug messages>
+
+11.21.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+<suppressed ~10 debug messages>
+
+11.21.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+11.21.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \baseline_noc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~105 debug messages>
+
+11.21.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \baseline_noc.
+    Consolidated identical input bits for $mux cell $auto$opt_share.cc:244:merge_operators$1603:
+      Old ports: A=3'111, B=3'001, Y=$auto$rtlil.cc:3386:Mux$1604
+      New ports: A=1'1, B=1'0, Y=$auto$rtlil.cc:3386:Mux$1604 [1]
+      New connections: { $auto$rtlil.cc:3386:Mux$1604 [2] $auto$rtlil.cc:3386:Mux$1604 [0] } = { $auto$rtlil.cc:3386:Mux$1604 [1] 1'1 }
+    Consolidated identical input bits for $mux cell $auto$opt_share.cc:244:merge_operators$1610:
+      Old ports: A=3'111, B=3'001, Y=$auto$rtlil.cc:3386:Mux$1611
+      New ports: A=1'1, B=1'0, Y=$auto$rtlil.cc:3386:Mux$1611 [1]
+      New connections: { $auto$rtlil.cc:3386:Mux$1611 [2] $auto$rtlil.cc:3386:Mux$1611 [0] } = { $auto$rtlil.cc:3386:Mux$1611 [1] 1'1 }
+    Consolidated identical input bits for $mux cell $auto$opt_share.cc:244:merge_operators$1617:
+      Old ports: A=3'111, B=3'001, Y=$auto$rtlil.cc:3386:Mux$1618
+      New ports: A=1'1, B=1'0, Y=$auto$rtlil.cc:3386:Mux$1618 [1]
+      New connections: { $auto$rtlil.cc:3386:Mux$1618 [2] $auto$rtlil.cc:3386:Mux$1618 [0] } = { $auto$rtlil.cc:3386:Mux$1618 [1] 1'1 }
+    Consolidated identical input bits for $mux cell $auto$opt_share.cc:244:merge_operators$1624:
+      Old ports: A=3'111, B=3'001, Y=$auto$rtlil.cc:3386:Mux$1625
+      New ports: A=1'1, B=1'0, Y=$auto$rtlil.cc:3386:Mux$1625 [1]
+      New connections: { $auto$rtlil.cc:3386:Mux$1625 [2] $auto$rtlil.cc:3386:Mux$1625 [0] } = { $auto$rtlil.cc:3386:Mux$1625 [1] 1'1 }
+    Consolidated identical input bits for $mux cell $auto$opt_share.cc:244:merge_operators$1631:
+      Old ports: A=3'111, B=3'001, Y=$auto$rtlil.cc:3386:Mux$1632
+      New ports: A=1'1, B=1'0, Y=$auto$rtlil.cc:3386:Mux$1632 [1]
+      New connections: { $auto$rtlil.cc:3386:Mux$1632 [2] $auto$rtlil.cc:3386:Mux$1632 [0] } = { $auto$rtlil.cc:3386:Mux$1632 [1] 1'1 }
+  Optimizing cells in module \baseline_noc.
+Performed a total of 5 changes.
+
+11.21.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 622 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.21.14. Executing OPT_SHARE pass.
+
+11.21.15. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $memory\u_core.g_in[0].u_fifo.mem[0]$1355 ($dff) from module baseline_noc (D = \in_data [31:0], Q = \u_core.g_in[0].u_fifo.mem[0]).
+Adding EN signal on $memory\u_core.g_in[0].u_fifo.mem[1]$1357 ($dff) from module baseline_noc (D = \in_data [31:0], Q = \u_core.g_in[0].u_fifo.mem[1]).
+Adding EN signal on $memory\u_core.g_in[0].u_fifo.mem[2]$1359 ($dff) from module baseline_noc (D = \in_data [31:0], Q = \u_core.g_in[0].u_fifo.mem[2]).
+Adding EN signal on $memory\u_core.g_in[0].u_fifo.mem[3]$1361 ($dff) from module baseline_noc (D = \in_data [31:0], Q = \u_core.g_in[0].u_fifo.mem[3]).
+Adding EN signal on $memory\u_core.g_in[1].u_fifo.mem[0]$1404 ($dff) from module baseline_noc (D = \in_data [63:32], Q = \u_core.g_in[1].u_fifo.mem[0]).
+Adding EN signal on $memory\u_core.g_in[1].u_fifo.mem[1]$1406 ($dff) from module baseline_noc (D = \in_data [63:32], Q = \u_core.g_in[1].u_fifo.mem[1]).
+Adding EN signal on $memory\u_core.g_in[1].u_fifo.mem[2]$1408 ($dff) from module baseline_noc (D = \in_data [63:32], Q = \u_core.g_in[1].u_fifo.mem[2]).
+Adding EN signal on $memory\u_core.g_in[1].u_fifo.mem[3]$1410 ($dff) from module baseline_noc (D = \in_data [63:32], Q = \u_core.g_in[1].u_fifo.mem[3]).
+Adding EN signal on $memory\u_core.g_in[2].u_fifo.mem[0]$1453 ($dff) from module baseline_noc (D = \in_data [95:64], Q = \u_core.g_in[2].u_fifo.mem[0]).
+Adding EN signal on $memory\u_core.g_in[2].u_fifo.mem[1]$1455 ($dff) from module baseline_noc (D = \in_data [95:64], Q = \u_core.g_in[2].u_fifo.mem[1]).
+Adding EN signal on $memory\u_core.g_in[2].u_fifo.mem[2]$1457 ($dff) from module baseline_noc (D = \in_data [95:64], Q = \u_core.g_in[2].u_fifo.mem[2]).
+Adding EN signal on $memory\u_core.g_in[2].u_fifo.mem[3]$1459 ($dff) from module baseline_noc (D = \in_data [95:64], Q = \u_core.g_in[2].u_fifo.mem[3]).
+Adding EN signal on $memory\u_core.g_in[3].u_fifo.mem[0]$1502 ($dff) from module baseline_noc (D = \in_data [127:96], Q = \u_core.g_in[3].u_fifo.mem[0]).
+Adding EN signal on $memory\u_core.g_in[3].u_fifo.mem[1]$1504 ($dff) from module baseline_noc (D = \in_data [127:96], Q = \u_core.g_in[3].u_fifo.mem[1]).
+Adding EN signal on $memory\u_core.g_in[3].u_fifo.mem[2]$1506 ($dff) from module baseline_noc (D = \in_data [127:96], Q = \u_core.g_in[3].u_fifo.mem[2]).
+Adding EN signal on $memory\u_core.g_in[3].u_fifo.mem[3]$1508 ($dff) from module baseline_noc (D = \in_data [127:96], Q = \u_core.g_in[3].u_fifo.mem[3]).
+Adding EN signal on $memory\u_core.g_in[4].u_fifo.mem[0]$1551 ($dff) from module baseline_noc (D = \in_data [159:128], Q = \u_core.g_in[4].u_fifo.mem[0]).
+Adding EN signal on $memory\u_core.g_in[4].u_fifo.mem[1]$1553 ($dff) from module baseline_noc (D = \in_data [159:128], Q = \u_core.g_in[4].u_fifo.mem[1]).
+Adding EN signal on $memory\u_core.g_in[4].u_fifo.mem[2]$1555 ($dff) from module baseline_noc (D = \in_data [159:128], Q = \u_core.g_in[4].u_fifo.mem[2]).
+Adding EN signal on $memory\u_core.g_in[4].u_fifo.mem[3]$1557 ($dff) from module baseline_noc (D = \in_data [159:128], Q = \u_core.g_in[4].u_fifo.mem[3]).
+
+11.21.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 20 unused cells and 30 unused wires.
+<suppressed ~21 debug messages>
+
+11.21.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+<suppressed ~5 debug messages>
+
+11.21.18. Rerunning OPT passes. (Maybe there is more to do..)
+
+11.21.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \baseline_noc..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~55 debug messages>
+
+11.21.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \baseline_noc.
+Performed a total of 0 changes.
+
+11.21.21. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 602 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.21.22. Executing OPT_SHARE pass.
+
+11.21.23. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.21.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+
+11.21.25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+
+11.21.26. Finished fast OPT passes. (There is nothing left to do.)
+
+11.22. Executing TECHMAP pass (map to technology primitives).
+
+11.22.1. Executing Verilog-2005 frontend: /opt/homebrew/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/opt/homebrew/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+11.22.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $dffe.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $and.
+Using template $paramod$dc04b7d98e503a7bab16fce2df70e6e2c5ca34d6\_90_alu for cells of type $alu.
+Using template $paramod$175e67c02b86e96b1288b9dc100122520d7240d8\_90_alu for cells of type $alu.
+Using template $paramod$78e969f2586efcf3a5b0b0440bcca0db83d5cca2\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $reduce_and.
+Using template $paramod$ba698a254f9a5947e85cbe7beae6b161eefc5386\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $sdffe.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $dff.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000010 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000010 for cells of type $lcu.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000011 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000011 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000101 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000101 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~1685 debug messages>
+
+11.23. Executing OPT pass (performing simple optimizations).
+
+11.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+<suppressed ~1160 debug messages>
+
+11.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 4147 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Computing hashes of 4012 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Computing hashes of 3997 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+<suppressed ~450 debug messages>
+Removed a total of 150 cells.
+
+11.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 85 unused cells and 1847 unused wires.
+<suppressed ~98 debug messages>
+
+11.23.5. Finished fast OPT passes.
+
+11.24. Executing ABC pass (technology mapping using ABC).
+
+11.24.1. Extracting gate netlist of module `\baseline_noc' to `<abc-temp-dir>/input.blif'..
+
+11.24.1.1. Executed ABC.
+Extracted 3030 gates and 3748 wires to a netlist network with 716 inputs and 275 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+11.24.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:      559
+ABC RESULTS:            ANDNOT cells:       55
+ABC RESULTS:               MUX cells:      485
+ABC RESULTS:              NAND cells:     1032
+ABC RESULTS:               NOR cells:       20
+ABC RESULTS:               NOT cells:       25
+ABC RESULTS:                OR cells:       63
+ABC RESULTS:             ORNOT cells:       28
+ABC RESULTS:              XNOR cells:       15
+ABC RESULTS:               XOR cells:       10
+ABC RESULTS:              ZERO cells:        8
+ABC RESULTS:        internal signals:     2757
+ABC RESULTS:           input signals:      716
+ABC RESULTS:          output signals:      275
+Removing temp directory.
+Removing global temp directory.
+
+11.25. Executing OPT pass (performing simple optimizations).
+
+11.25.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+
+11.25.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 3174 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Computing hashes of 3164 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Computing hashes of 3162 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+<suppressed ~36 debug messages>
+Removed a total of 12 cells.
+
+11.25.3. Executing OPT_DFF pass (perform DFF optimizations).
+Setting constant 0-bit at position 0 on $auto$ff.cc:337:slice$2665 ($_SDFFE_PP0P_) from module baseline_noc.
+Setting constant 0-bit at position 0 on $auto$ff.cc:337:slice$2632 ($_SDFFE_PP0P_) from module baseline_noc.
+Setting constant 0-bit at position 0 on $auto$ff.cc:337:slice$2563 ($_SDFFE_PP0P_) from module baseline_noc.
+Setting constant 0-bit at position 0 on $auto$ff.cc:337:slice$2531 ($_SDFFE_PP0P_) from module baseline_noc.
+
+11.25.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 0 unused cells and 1747 unused wires.
+<suppressed ~58 debug messages>
+
+11.25.5. Rerunning OPT passes. (Removed registers in this run.)
+
+11.25.6. Executing OPT_EXPR pass (perform const folding).
+Optimizing module baseline_noc.
+
+11.25.7. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\baseline_noc'.
+Computing hashes of 3158 cells of `\baseline_noc'.
+Finding duplicate cells in `\baseline_noc'.
+Removed a total of 0 cells.
+
+11.25.8. Executing OPT_DFF pass (perform DFF optimizations).
+
+11.25.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+
+11.25.10. Finished fast OPT passes.
+
+11.26. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `baseline_noc'. Setting top module to baseline_noc.
+
+11.26.1. Analyzing design hierarchy..
+Top module:  \baseline_noc
+
+11.26.2. Analyzing design hierarchy..
+Top module:  \baseline_noc
+Removed 0 unused modules.
+
+11.27. Printing statistics.
+
+=== baseline_noc ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     2237 wires
+     4285 wire bits
+      131 public wires
+     2149 public wire bits
+        8 ports
+      342 port bits
+     3158 cells
+       55   $_ANDNOT_
+      559   $_AND_
+      640   $_DFFE_PP_
+       25   $_DFF_P_
+      485   $_MUX_
+     1032   $_NAND_
+       20   $_NOR_
+       25   $_NOT_
+       28   $_ORNOT_
+       57   $_OR_
+      190   $_SDFFE_PP0P_
+       15   $_XNOR_
+       10   $_XOR_
+       17   $scopeinfo
+
+11.28. Executing CHECK pass (checking for obvious problems).
+Checking module baseline_noc...
+Found and reported 0 problems.
+
+12. Executing CHECK pass (checking for obvious problems).
+Checking module baseline_noc...
+Found and reported 0 problems.
+
+13. Printing statistics.
+
+=== baseline_noc ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     2237 wires
+     4285 wire bits
+      131 public wires
+     2149 public wire bits
+        8 ports
+      342 port bits
+     3158 cells
+       55   $_ANDNOT_
+      559   $_AND_
+      640   $_DFFE_PP_
+       25   $_DFF_P_
+      485   $_MUX_
+     1032   $_NAND_
+       20   $_NOR_
+       25   $_NOT_
+       28   $_ORNOT_
+       57   $_OR_
+      190   $_SDFFE_PP0P_
+       15   $_XNOR_
+       10   $_XOR_
+       17   $scopeinfo
+
+14. Executing DFFLEGALIZE pass (convert FFs and LATCHes to types supported by the target).
+
+15. Executing ABC pass (technology mapping using ABC).
+
+15.1. Extracting gate netlist of module `\baseline_noc' to `<abc-temp-dir>/input.blif'..
+
+15.1.1. Executed ABC.
+Extracted 3306 gates and 4333 wires to a netlist network with 1026 inputs and 860 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+15.1.2. Re-integrating ABC results.
+ABC RESULTS:              NAND cells:     5371
+ABC RESULTS:               NOR cells:      539
+ABC RESULTS:               NOT cells:      190
+ABC RESULTS:        internal signals:     2447
+ABC RESULTS:           input signals:     1026
+ABC RESULTS:          output signals:      860
+Removing temp directory.
+Removing global temp directory.
+
+16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \baseline_noc..
+Removed 0 unused cells and 4173 unused wires.
+<suppressed ~17 debug messages>
+
+17. Printing statistics.
+
+=== baseline_noc ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     6210 wires
+     8224 wire bits
+      115 public wires
+     2129 public wire bits
+        8 ports
+      342 port bits
+     6972 cells
+      855   $_DFF_P_
+     5371   $_NAND_
+      539   $_NOR_
+      190   $_NOT_
+       17   $scopeinfo
+
+   Estimated number of transistors:      37700+
+
+18. Executing LTP pass (find longest path).
+
+Longest topological path in baseline_noc (length=25):
+    0: \u_core.g_in[0].u_fifo.rptr [0]
+    1: $abc$12276$new_n2013 (via $abc$12276$auto$blifparse.cc:397:parse_blif$12403)
+    2: $abc$12276$new_n2014 (via $abc$12276$auto$blifparse.cc:397:parse_blif$12404)
+    3: $abc$12276$new_n2017 (via $abc$12276$auto$blifparse.cc:397:parse_blif$12407)
+    4: $abc$12276$new_n2022 (via $abc$12276$auto$blifparse.cc:397:parse_blif$12412)
+    5: $abc$12276$new_n2023 (via $abc$12276$auto$blifparse.cc:397:parse_blif$12413)
+    6: $abc$12276$new_n2196 (via $abc$12276$auto$blifparse.cc:397:parse_blif$12586)
+    7: $abc$12276$new_n2578 (via $abc$12276$auto$blifparse.cc:397:parse_blif$12968)
+    8: $abc$12276$new_n2598 (via $abc$12276$auto$blifparse.cc:397:parse_blif$12988)
+    9: $abc$12276$new_n2604 (via $abc$12276$auto$blifparse.cc:397:parse_blif$12994)
+   10: $abc$12276$new_n2615 (via $abc$12276$auto$blifparse.cc:397:parse_blif$13005)
+   11: $abc$12276$new_n2618 (via $abc$12276$auto$blifparse.cc:397:parse_blif$13008)
+   12: $abc$12276$new_n2622 (via $abc$12276$auto$blifparse.cc:397:parse_blif$13012)
+   13: $abc$12276$new_n5184 (via $abc$12276$auto$blifparse.cc:397:parse_blif$15574)
+   14: $abc$12276$new_n5186 (via $abc$12276$auto$blifparse.cc:397:parse_blif$15576)
+   15: $abc$12276$new_n6845 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17235)
+   16: $abc$12276$new_n6847 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17237)
+   17: $abc$12276$new_n6848 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17238)
+   18: $abc$12276$new_n6850 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17240)
+   19: $abc$12276$new_n6852 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17242)
+   20: $abc$12276$new_n6858 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17248)
+   21: $abc$12276$new_n7028 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17418)
+   22: $abc$12276$new_n7029 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17419)
+   23: $abc$12276$new_n7030 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17420)
+   24: $abc$12276$new_n7032 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17422)
+   25: $abc$12276$auto$rtlil.cc:3497:MuxGate$11613 (via $abc$12276$auto$blifparse.cc:397:parse_blif$17423)
+   ff: \u_core.g_in[0].u_fifo.cnt [2] (via $auto$ff.cc:337:slice$2457)
+
+19. Executing Verilog backend.
+
+19.1. Executing BMUXMAP pass.
+
+19.2. Executing DEMUXMAP pass.
+Dumping module `\baseline_noc'.
+
+End of script. Logfile hash: 051e80120f, time: 0.82s, user: 0.31s, system: 0.02s, MEM: 46.09 MB peak
+Yosys 0.69+post (git sha1 143eb14f9cc55d6f8927e68523b0c9d2166ed02c, Release, AppleClang clang++ 21.0.0.21000101)
+Time spent: 63% 2x abc (0 sec), 9% 23x opt_clean (0 sec), ...

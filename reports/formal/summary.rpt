@@ -1,0 +1,34 @@
+AegisNoC formal verification summary
+engine : Yosys 0.69+post (git sha1 143eb14f9cc55d6f8927e68523b0c9d2166ed02c, Release, AppleClang clang++ 21.0.0.21000101) — built-in `sat` (MiniSAT), no external solver
+mode   : FULL
+date   : 2026-09-25 17:32:10
+
+kind     check                                                 verdict     detail                                          sec
+PROOF    fifo (sync_fifo) all assertions                       PROVEN      k-induction, converged at k=2                   0.4
+REACH    fifo: f_reach_full                                    REACHED     bounded search depth 12                         0.4
+REACH    fifo: f_reach_wrap                                    REACHED     bounded search depth 12                         0.4
+REACH    fifo: f_reach_pushpop_full                            REACHED     bounded search depth 12                         0.5
+PROOF    arbiter (rr_arbiter) all assertions                   PROVEN      k-induction, converged at k=2                   0.1
+REACH    arbiter: f_reach_max_wait                             REACHED     bounded search depth 12                         0.1
+REACH    arbiter: f_reach_all_req                              REACHED     bounded search depth 12                         0.1
+PROOF    router (router_core) all assertions                   PROVEN      k-induction, converged at k=2                   8.2
+REACH    router: f_reach_all_out                               REACHED     bounded search depth 8                          2.7
+REACH    router: f_reach_stall_backlog                         REACHED     bounded search depth 8                          2.6
+REACH    router: f_reach_contention                            REACHED     bounded search depth 8                          2.6
+PROOF    ecc E1 clean codeword (all 2^32 data)                 PROVEN      direct                                          0.0
+PROOF    ecc E2 every single-bit error corrected (all data)    PROVEN      case split: 39/39 error positions             141.0
+PROOF    ecc E3 every double-bit error detected (all data)     PROVEN      case split: 741/741 bit pairs                  12.2
+PROOF    ecc E4 flags mutually exclusive (any 39-bit word)     PROVEN      direct                                          0.0
+PROOF    ecc E5 no flag => valid codeword, data untouched      PROVEN      direct                                          0.1
+PROOF    ecc E6 corrected => distance-1 valid codeword         PROVEN      case split: 64/64 syndrome values              53.6
+REACH    ecc: f_reach_single                                   REACHED     satisfiable under assumptions                   0.1
+REACH    ecc: f_reach_double                                   REACHED     satisfiable under assumptions                   0.1
+REACH    ecc: f_reach_any_corrected                            REACHED     satisfiable under assumptions                   0.1
+REACH    ecc: f_reach_any_uncorrectable                        REACHED     satisfiable under assumptions                   0.1
+NEGATIVE fifo: push ignores full                               CAUGHT      proof failed on broken RTL, as required         0.8
+NEGATIVE arbiter: pointer parks on winner (starvation)         CAUGHT      proof failed on broken RTL, as required         0.1
+NEGATIVE router: output overwritten while stalled              CAUGHT      proof failed on broken RTL, as required         7.0
+NEGATIVE router: X/Y header fields swapped                     CAUGHT      proof failed on broken RTL, as required         1.2
+NEGATIVE ecc: one parity-mask bit wrong                        CAUGHT      proof failed at error bit 33, as required     135.2
+
+TOTAL: 26 checks, 0 problems

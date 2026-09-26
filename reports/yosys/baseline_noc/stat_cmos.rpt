@@ -1,0 +1,22 @@
+
+17. Printing statistics.
+
+=== baseline_noc ===
+
+        +----------Local Count, excluding submodules.
+        | 
+     6210 wires
+     8224 wire bits
+      115 public wires
+     2129 public wire bits
+        8 ports
+      342 port bits
+     6972 cells
+      855   $_DFF_P_
+     5371   $_NAND_
+      539   $_NOR_
+      190   $_NOT_
+       17   $scopeinfo
+
+   Estimated number of transistors:      37700+
+

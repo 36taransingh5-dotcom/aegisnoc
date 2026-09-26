@@ -1,0 +1,40 @@
+AegisNoC simulation regression — 2026-09-25 17:23:25
+tools: Verilator 5.052 2026-09-05 rev vUNKNOWN-built20260905 | Icarus Verilog version 13.0 (stable) (v13_0)
+result: 18 passed, 0 failed
+
+tb_aegis_fault_injection.icarus : PASS
+tb_aegis_fault_injection.verilator : PASS
+tb_crossbar.icarus : PASS
+    [tb_crossbar] select patterns checked = 7776 (all one-hot0 combinations)
+tb_crossbar.verilator : PASS
+    [tb_crossbar] select patterns checked = 7776 (all one-hot0 combinations)
+tb_ecc.icarus : PASS
+    [tb_ecc] patterns=269  clean=269  single-bit faults=10491 (all corrected)  double-bit faults=199329 (all detected)
+    [tb_ecc] INFO triple-bit faults (beyond SECDED guarantee): 20000 samples, 6130 flagged uncorrectable, 13870 mis-corrected
+tb_ecc.verilator : PASS
+    [tb_ecc] patterns=269  clean=269  single-bit faults=10491 (all corrected)  double-bit faults=199329 (all detected)
+    [tb_ecc] INFO triple-bit faults (beyond SECDED guarantee): 20000 samples, 5979 flagged uncorrectable, 14021 mis-corrected
+tb_fifo.icarus : PASS
+    [tb_fifo] checks=20049 pushes=7566 pops=7566 blocked_push=3002 blocked_pop=3509 push+pop=2850
+tb_fifo.verilator : PASS
+    [tb_fifo] checks=20050 pushes=7529 pops=7529 blocked_push=2953 blocked_pop=3469 push+pop=2819
+tb_router.icarus : PASS
+    [tb_router] sent=16480 received=16480 stall_cycles=10679 rr_checks=1134 cycles=14548
+tb_router.verilator : PASS
+    [tb_router] sent=16480 received=16480 stall_cycles=10800 rr_checks=1133 cycles=14540
+tb_router_aegis.icarus : PASS
+    [tb_router] sent=16480 received=16480 stall_cycles=10679 rr_checks=1134 cycles=14548
+tb_router_aegis.verilator : PASS
+    [tb_router] sent=16480 received=16480 stall_cycles=10800 rr_checks=1133 cycles=14540
+tb_router_aegis_sva.verilator : PASS
+    [tb_router] sent=16480 received=16480 stall_cycles=10800 rr_checks=1133 cycles=14540
+tb_router_sva.verilator : PASS
+    [tb_router] sent=16480 received=16480 stall_cycles=10800 rr_checks=1133 cycles=14540
+tb_rr_arbiter.icarus : PASS
+    [tb_rr_arbiter] checks=20066 grants=[2590 2568 2527 2567 2567] worst_wait=4 (bound 4)
+tb_rr_arbiter.verilator : PASS
+    [tb_rr_arbiter] checks=20066 grants=[2636 2569 2576 2595 2535] worst_wait=4 (bound 4)
+tb_xy_route.icarus : PASS
+    [tb_xy_route] cases=256  N=24 S=24 E=96 W=96 L=16  x_priority_cases=144
+tb_xy_route.verilator : PASS
+    [tb_xy_route] cases=256  N=24 S=24 E=96 W=96 L=16  x_priority_cases=144

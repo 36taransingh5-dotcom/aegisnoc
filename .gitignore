@@ -1,0 +1,8 @@
+build/
+*.vcd
+*.fst
+obj_dir/
+pnr/setup_local.tcl
+pnr/out/
+syn/out/
+reports/formal/logs/
